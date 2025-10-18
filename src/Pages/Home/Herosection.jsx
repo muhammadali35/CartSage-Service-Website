@@ -1,4 +1,3 @@
-// src/components/HeroSection.jsx
 import { motion } from "framer-motion";
 import hero from "../../assets/hero5.jpg";
 import Button from "../../components/Button";
@@ -7,51 +6,52 @@ import { Link } from "react-router-dom";
 const HeroSection = () => {
   return (
     <section className="relative h-screen w-full overflow-hidden font-serif">
-      {/* ✅ Background Image with Subtle Zoom Animation */}
+      {/* Background Image */}
       <motion.img
         src={hero}
         alt="Hero Background"
         className="absolute inset-0 w-full h-full object-cover"
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.7, ease: "easeOut" }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
       />
 
-      {/* ✅ Full Overlay */}
-      <div className="absolute inset-0 bg-black/70 z-10"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80 z-10"></div>
 
-      {/* ✅ Content — Centered */}
-      <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-6">
-        <div className="text-center text-white max-w-2xl">
-          {/* ✅ Title: Slide from Left */}
+      {/* Content */}
+      <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-8 lg:px-12">
+        <div className="text-center text-white max-w-3xl">
+          {/* Title */}
           <motion.h1
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6"
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-snug sm:leading-tight mb-4 sm:mb-6"
           >
-            Grow Your Sales on Amazon, eBay & Walmart — Hands-Free
+            Skyrocket Your Sales on Amazon, eBay & Walmart
           </motion.h1>
 
-          {/* ✅ Description: Fade In */}
+          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7, ease: "easeOut" }}
-            className="text-gray-200 text-lg md:text-xl mb-8 px-2"
+            transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
+            className="text-gray-100 text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 px-2 sm:px-4 max-w-2xl mx-auto"
           >
-            Smart systems. Real results. End-to-end Amazon, eBay, and Walmart management.
+            Effortless management with smart automation. Boost your e-commerce success with proven strategies.
           </motion.p>
 
-          {/* ✅ Button: Slide from Right */}
+          {/* Button */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.9, ease: "easeOut" }}
+            transition={{ duration: 0.9, delay: 0.8, ease: "easeOut" }}
           >
             <Link to="/projects">
-              <Button content="View Our Projects" 
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 text-lg rounded-full shadow-lg hover:shadow-xl transition"
+              <Button
+                content="Explore Our Solutions"
+                className="bg-[#4C93FF] hover:bg-indigo-500 text-white px-6 py-2.5 sm:px-8 sm:py-3 text-base sm:text-lg rounded-full shadow-md hover:shadow-lg transition duration-300"
               />
             </Link>
           </motion.div>

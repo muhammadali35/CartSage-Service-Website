@@ -6,6 +6,7 @@ import { projects } from "../../Data/ProjectData";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const categories = ["Amazon", "Web Development", "eBay", "Walmart"];
+const BRAND_COLOR = "#4C93FF";
 
 export default function HomeProject() {
   const [activeCategory, setActiveCategory] = useState("Amazon");
@@ -20,7 +21,6 @@ export default function HomeProject() {
     return () => clearTimeout(timer);
   }, []);
 
-  // ✅ BODY SCROLL LOCK — Modal open hone par
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
@@ -32,7 +32,6 @@ export default function HomeProject() {
     };
   }, [selectedProject]);
 
-  // ✅ Only show first 3 projects of the selected category
   const filteredProjects = projects
     .filter((p) => p.category === activeCategory)
     .slice(0, 3);
@@ -44,9 +43,7 @@ export default function HomeProject() {
 
   const nextImage = () => {
     if (!selectedProject?.screenshots) return;
-    setGalleryIndex(
-      (prev) => (prev + 1) % selectedProject.screenshots.length
-    );
+    setGalleryIndex((prev) => (prev + 1) % selectedProject.screenshots.length);
   };
 
   const prevImage = () => {
@@ -57,20 +54,30 @@ export default function HomeProject() {
   };
 
   const getImages = (project) => {
-    if (project.screenshots && project.screenshots.length > 0) {
-      return project.screenshots;
-    }
-    return [project.image];
+    return project.screenshots && project.screenshots.length > 0
+      ? project.screenshots
+      : [project.image];
+  };
+
+  // ✅ Route mapping for each category (adjust as per your actual routes)
+  const getCategoryRoute = (category) => {
+    const map = {
+      "Amazon": "/projects",
+      "eBay": "/projects",
+      "Walmart": "/projects",
+      "Web Development": "/projects",
+    };
+    return map[category] || "/projects";
   };
 
   return (
     <section
       ref={ref}
-      className="min-h-screen py-20 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100 font-sans"
+      className="min-h-screen py-16 px-4 sm:px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100 font-sans"
     >
       {/* Section Title */}
       <motion.h1
-        className="text-4xl md:text-5xl font-extrabold text-center mb-14 text-gray-900"
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-10 sm:mb-14 text-gray-900"
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
@@ -78,9 +85,9 @@ export default function HomeProject() {
         Discover Our Latest Projects
       </motion.h1>
 
-      {/* ✅ CATEGORY BUTTONS — Aapke original jaisa hi (no change) */}
+      {/* Category Buttons */}
       <motion.div
-        className="flex flex-wrap justify-center gap-4 mb-16"
+        className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10 sm:mb-12"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.2 }}
@@ -89,9 +96,9 @@ export default function HomeProject() {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-6 py-3 rounded-md font-semibold text-base transition-all duration-300 ${
-              activeCategory === cat
-                ? "bg-indigo-600 text-white shadow-md"
+            className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
+             activeCategory === cat
+                ? "bg-[#4C93FF] text-white shadow-md"
                 : "bg-white text-[#FF6B35] border hover:bg-[#FF6B35] hover:text-white"
             }`}
           >
@@ -100,11 +107,11 @@ export default function HomeProject() {
         ))}
       </motion.div>
 
-      {/* Projects Grid or Skeletons */}
+      {/* Projects Grid */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeCategory}
-          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -114,20 +121,20 @@ export default function HomeProject() {
             ? [...Array(3)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-[360px] bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse rounded-xl"
+                  className="h-[320px] sm:h-[360px] bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse rounded-xl"
                 />
               ))
             : filteredProjects.map((project, i) => (
                 <motion.div
-                 onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedProject(project);
-                      }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedProject(project);
+                  }}
                   key={project.id}
-                  className="relative rounded-xl overflow-hidden shadow-xl cursor-pointer group bg-white"
+                  className="relative rounded-xl overflow-hidden shadow-lg cursor-pointer group bg-white"
                   whileHover={{
-                    scale: 1.04,
-                    transition: { type: "spring", stiffness: 150, damping: 10 },
+                    scale: 1.03,
+                    transition: { type: "spring", stiffness: 200, damping: 12 },
                   }}
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -136,17 +143,15 @@ export default function HomeProject() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-[360px] object-cover"
+                    className="w-full h-[320px] sm:h-[360px] object-cover"
                   />
-
-                  {/* ✅ BUTTON: Bottom se slowly slide up — NO OVERLAY */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:bottom-6 transition-all duration-500 ease-out pointer-events-none z-10">
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:bottom-5 transition-all duration-500 ease-out pointer-events-none z-10">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedProject(project);
                       }}
-                      className="px-7 py-3 bg-indigo-600 text-white font-semibold rounded-2xl shadow-lg hover:bg-indigo-800 transition pointer-events-auto"
+                      className="px-6 py-2.5 bg-[#4C93FF] text-white font-semibold rounded-xl shadow-md hover:bg-[#3a84f0] transition pointer-events-auto text-sm sm:text-base"
                     >
                       View More
                     </button>
@@ -156,7 +161,22 @@ export default function HomeProject() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ====== MODAL ====== */}
+    
+<motion.div
+  className="mt-10 flex justify-center"
+  initial={{ opacity: 0, y: 20 }}
+  animate={isInView ? { opacity: 1, y: 0 } : {}}
+  transition={{ delay: 0.5 }}
+>
+  <a
+    href={getCategoryRoute(activeCategory)}
+    className="bg-[#4C93FF] hover:bg-[#4C93FF] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+  >
+    View More {activeCategory} Projects →
+  </a>
+</motion.div>
+
+      {/* Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -181,7 +201,6 @@ export default function HomeProject() {
                 <X size={28} />
               </button>
 
-              {/* ✅ FULL-WIDTH IMAGE — No side padding */}
               <div className="w-full mx-0 overflow-hidden rounded-t-3xl mt-1 relative hide-scrollbar">
                 <div className="w-full flex justify-center bg-gray-50">
                   <motion.img
@@ -195,7 +214,6 @@ export default function HomeProject() {
                   />
                 </div>
 
-                {/* Arrows */}
                 {getImages(selectedProject).length > 1 && (
                   <>
                     <button
@@ -203,37 +221,39 @@ export default function HomeProject() {
                         e.stopPropagation();
                         prevImage();
                       }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#ff6b35] text-white p-3 rounded-full hover:bg-[#ff6b35]/70 z-20"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#4C93FF] text-white p-2.5 rounded-full hover:bg-[#3a84f0] z-20"
                       aria-label="Previous"
                     >
-                      <ChevronLeft size={24} />
+                      <ChevronLeft size={22} />
                     </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         nextImage();
                       }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#ff6b35] text-white p-3 rounded-full hover:bg-[#ff6b35]/70 z-20"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#4C93FF] text-white p-2.5 rounded-full hover:bg-[#3a84f0] z-20"
                       aria-label="Next"
                     >
-                      <ChevronRight size={24} />
+                      <ChevronRight size={22} />
                     </button>
                   </>
                 )}
               </div>
 
-              <div className="p-6 pt-4 pb-8 text-center">
-                <h2 className="text-2xl font-bold mb-2 text-gray-800">
+              <div className="p-5 sm:p-6 pt-4 pb-7 text-center">
+                <h2 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">
                   {selectedProject.title}
                 </h2>
-                <p className="text-gray-600 mb-4">{selectedProject.desc}</p>
+                <p className="text-gray-600 mb-4 text-sm sm:text-base">
+                  {selectedProject.desc}
+                </p>
                 {selectedProject.link && (
                   <a
                     href={selectedProject.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <button className="px-6 py-2 bg-gradient-to-r from-teal-500 to-green-400 text-white rounded-full font-medium hover:shadow-lg transition">
+                    <button className="px-5 py-2 bg-gradient-to-r from-[#4C93FF] to-blue-500 text-white rounded-full font-medium hover:shadow-lg transition text-sm sm:text-base">
                       Visit Project
                     </button>
                   </a>
@@ -244,7 +264,6 @@ export default function HomeProject() {
         )}
       </AnimatePresence>
 
-      {/* ✅ HIDE SCROLLBAR GLOBALLY */}
       <style jsx global>{`
         .hide-scrollbar {
           -ms-overflow-style: none;

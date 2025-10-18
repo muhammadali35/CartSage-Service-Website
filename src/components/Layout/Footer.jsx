@@ -1,128 +1,143 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { FaFacebookF, FaInstagram, FaTwitter, FaDribbble } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+  FaDribbble,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+} from "react-icons/fa";
+import { TbBrandFiverr } from "react-icons/tb";
+
 
 export default function Footer() {
-  const links = ["About", "Portfolios", "Services", "Testimonials", "Careers"];
   const [activeLink, setActiveLink] = useState(null);
+  const navItems = ["Home", "Services", "Projects", "Testimonials", "Contact"];
 
   return (
-    <footer className="relative bg-[#000000] text-white px-8 md:px-20 py-20 border-t border-gray-800 overflow-hidden">
-      {/* Soft glow background */}
+    <footer
+      className="relative bg-[#262D3E] text-white px-4 sm:px-6 lg:px-16 py-12 sm:py-16 lg:py-20 border-t border-gray-800 overflow-hidden font-sans"
+      role="contentinfo"
+      aria-label="Footer"
+    >
+      {/* Subtle animated background glow */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.15 }}
-        transition={{ duration: 2 }}
-        className="absolute inset-0 bg-gradient-to-tr from-gray-800 via-gray-900 to-black blur-3xl"
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="absolute inset-0 bg-gradient-to-br from-[#4C93FF]/20 via-transparent to-purple-900/20 blur-3xl"
       />
 
-      <div className="relative grid md:grid-cols-3 gap-12 z-10">
-        {/* LEFT COLUMN */}
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 max-w-7xl mx-auto">
+        {/* LEFT COLUMN: Branding */}
         <div>
-          <h3 className="text-xl md:text-2xl font-semibold leading-snug mb-8 text-white">
-            Get valuable strategy, culture, and brand insights straight to your inbox
+          <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+            CartSage
           </h3>
-
-          <div className="relative group mb-5">
-            <input
-              type="email"
-              placeholder="Your email here"
-              className="w-full border-b border-gray-600 focus:outline-none pb-3 pr-10 placeholder-gray-400 bg-transparent text-gray-200"
-            />
-            <motion.span
-              whileHover={{ x: 4 }}
-              transition={{ duration: 0.3 }}
-              className="absolute right-0 bottom-3 text-gray-300 text-lg cursor-pointer"
-            >
-              ↗
-            </motion.span>
-          </div>
-
-          <p className="text-sm text-gray-500">
-            By signing up, you agree to our Privacy Policy. We treat your info responsibly.
+          <p className="text-white text-sm sm:text-base leading-relaxed max-w-xs">
+            Crafting digital experiences that inspire, engage, and convert.
           </p>
         </div>
 
-        {/* CENTER LINKS */}
+        {/* CENTER COLUMN: Links */}
         <div>
-          <h4 className="text-lg font-semibold mb-8 text-white">Links</h4>
-          <ul className="space-y-4">
-            {links.map((link, i) => (
+          <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white">
+            Quick Links
+          </h4>
+          <ul className="space-y-3">
+            {navItems.map((link, i) => (
               <motion.li
                 key={i}
-                className="relative w-fit cursor-pointer group font-medium"
+                className="relative w-fit cursor-pointer group font-medium text-white"
                 onClick={() => setActiveLink(link)}
-                whileHover="hover"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <span
+                <Link
+                  to={`/${link.toLowerCase() === "home" ? "" : link.toLowerCase()}`}
                   className={`${
                     activeLink === link
-                      ? "text-indigo-400"
-                      : "text-gray-300 hover:text-indigo-400"
-                  } transition-colors duration-300`}
+                      ? "text-[#4C93FF]"
+                      : "group-hover:text-[#4C93FF]"
+                  } transition-colors duration-300 text-sm sm:text-base`}
+                  aria-label={`Navigate to ${link} page`}
                 >
                   {link}
-                </span>
-
-                {/* Animated underline */}
-                <motion.span
-                  variants={{
-                    hover: { width: "100%", opacity: 1 },
-                    initial: {
-                      width: activeLink === link ? "100%" : "0%",
-                      opacity: 0.3,
-                    },
-                  }}
-                  animate={
-                    activeLink === link
-                      ? { width: "100%", opacity: 1 }
-                      : { width: "0%", opacity: 0.3 }
-                  }
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                  className="absolute left-0 -bottom-1 h-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 rounded-full"
-                />
+                </Link>
+                {activeLink === link && (
+                  <motion.span
+                    layoutId="activeLinkIndicator"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-[#4C93FF] to-purple-500 rounded-full"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  />
+                )}
               </motion.li>
             ))}
           </ul>
         </div>
 
-        {/* RIGHT CONTACT */}
+        {/* RIGHT COLUMN: Contact */}
         <div>
-          <h4 className="text-lg font-semibold mb-8 text-white">Contact</h4>
-          <p className="text-gray-400 leading-relaxed">
-            27 Division St, New York, <br /> NY 10002, USA
-          </p>
-          <p className="mt-3 font-medium text-indigo-400">+1 800 123 654 987</p>
-          <p className="text-gray-400">frisk.agency@mail.com</p>
+          <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white">
+            Get in Touch
+          </h4>
+          <div className="space-y-4 text-White text-sm sm:text-base">
+            <div className="flex items-start gap-3">
+              <FaMapMarkerAlt className="mt-1 text-[#4C93FF] flex-shrink-0" />
+              <span>27 Division St, New York, NY 10002, USA</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <FaPhone className="text-[#4C93FF] flex-shrink-0" />
+              <span className="font-medium text-white">+1 800 123 654 987</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <FaEnvelope className="text-[#4C93FF] flex-shrink-0" />
+              <span>hello@themegenix.com</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* BOTTOM SECTION */}
+      {/* BOTTOM BAR */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="relative z-10 mt-16 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-6"
+        className="relative z-10 mt-12 sm:mt-16 pt-8 border-t border-white max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6"
       >
-        <p className="text-sm text-gray-500">
-          © 2025 <span className="font-semibold text-white">ThemeGenix</span>. All rights reserved.
+        <p className="text-xs sm:text-sm text-white text-center">
+          © {new Date().getFullYear()}{" "}
+          <span className="font-semibold text-[#4C93FF]">
+CartSage</span>. All rights reserved.
         </p>
 
-        <div className="flex gap-6 text-lg">
-          {[FaFacebookF, FaInstagram, FaTwitter, FaDribbble].map((Icon, i) => (
-            <motion.div
+        <div className="flex gap-4 sm:gap-5">
+          {[FaFacebookF, FaInstagram, FaTwitter, TbBrandFiverr].map((Icon, i) => (
+            <motion.a
               key={i}
-              whileHover={{ scale: 1.2, rotate: 8 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="cursor-pointer text-gray-400 hover:text-indigo-400"
+              href="#"
+              whileHover={{ y: -3, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="text-white hover:text-[#4C93FF] transition-colors duration-200"
+              aria-label={`Follow us on ${["Facebook", "Instagram", "Twitter", "Dribbble"][i]}`}
             >
-              <Icon />
-            </motion.div>
+              <Icon className="text-lg sm:text-xl" />
+            </motion.a>
           ))}
         </div>
       </motion.div>
+
+      <style jsx>{`
+        .text-shadow-sm {
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+      `}</style>
     </footer>
   );
 }

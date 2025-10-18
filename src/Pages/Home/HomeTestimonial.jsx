@@ -1,4 +1,3 @@
-// src/components/HomeTestimonials.jsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,6 +11,11 @@ import { testimonials } from "../../Data/Testimonials";
 
 export default function HomeTestimonials() {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const autoplayOptions = {
     delay: 1000,
@@ -20,24 +24,23 @@ export default function HomeTestimonials() {
   };
 
   return (
-    <section className="py-20 bg-white px-4 md:px-12 font-sans overflow-hidden relative">
+    <section
+      className="py-16 sm:py-20 bg-white px-4 sm:px-6 lg:px-12 font-sans overflow-visible relative"
+      role="region"
+      aria-label="Testimonials Section"
+    >
       {/* Title */}
       <motion.h1
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-extrabold text-center mb-14 text-black"
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-10 sm:mb-14 text-gray-900"
       >
         What Our Clients Say
       </motion.h1>
 
-      <div
-        className="relative max-w-7xl mx-auto"
-        style={{
-          perspective: "1200px",
-          transformStyle: "preserve-3d",
-        }}
-      >
+      <div className="relative max-w-7xl mx-auto pb-12">
         <Swiper
           modules={[Navigation, Autoplay]}
           navigation={{
@@ -46,56 +49,68 @@ export default function HomeTestimonials() {
           }}
           autoplay={autoplayOptions}
           slidesPerView={3}
-          spaceBetween={10}
+          spaceBetween={24}
           centeredSlides={true}
           loop={true}
           speed={800}
           className="mySwiper"
           breakpoints={{
-            0: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            0: { slidesPerView: 1, spaceBetween: 12 },
+            640: { slidesPerView: 2, spaceBetween: 18 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
           }}
+          role="list"
+          aria-label="Testimonials carousel"
         >
           {testimonials.map((item) => (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item.id} role="listitem">
               {({ isActive, isPrev, isNext }) => (
                 <motion.div
-                  className={`rounded-2xl shadow-xl p-6 h-[420px] text-white text-center cursor-pointer transition-all duration-700 bg-gradient-to-br from-[#FF6B35] to-[#F55C23]`} // ✅ Brand Orange Gradient
+                  className="rounded-2xl shadow-xl p-6 sm:p-8 h-[400px] sm:h-[420px] text-white text-center cursor-pointer transition-all duration-700 bg-gradient-to-br from-[#4C93FF] to-[#2A7AE4]"
                   onClick={() => item.video && setSelectedVideo(item.video)}
                   style={{
                     transform: isActive
-                      ? "translateZ(100px) scale(1.05) rotateY(0deg)"
+                      ? "translateZ(80px) scale(1.03) rotateY(0deg)"
                       : isPrev
-                      ? "translateX(-50px) rotateY(25deg) scale(0.9)"
+                      ? "translateX(-30px) rotateY(15deg) scale(0.92)"
                       : isNext
-                      ? "translateX(50px) rotateY(-25deg) scale(0.9)"
+                      ? "translateX(30px) rotateY(-15deg) scale(0.92)"
                       : "scale(0.85)",
-                    opacity: isActive ? 1 : 0.7,
-                    transition: "all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                    opacity: isActive ? 1 : 0.75,
+                    zIndex: isActive ? 10 : 1,
+                    transition: "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.7s ease",
+                  }}
+                  tabIndex={0}
+                  role="article"
+                  aria-label={`Testimonial: ${item.title || item.name}`}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      item.video && setSelectedVideo(item.video);
+                    }
                   }}
                 >
-                  {/* 🎥 Video testimonial */}
                   {item.video ? (
                     <>
-                      <div className="w-full h-52 rounded-xl overflow-hidden mb-4 shadow-md">
+                      <div className="w-full h-48 sm:h-52 rounded-xl overflow-hidden mb-4 shadow-md bg-black/20 flex items-center justify-center">
                         <video
                           src={item.video}
                           className="w-full h-full object-cover"
-                          autoPlay
-                          loop
                           muted
                           playsInline
+                          aria-label={`Preview of testimonial video: ${item.title}`}
+                          onError={(e) => console.error("Video failed to load:", e)}
                         />
                       </div>
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
-                      <p className="text-xs opacity-80 mt-1 mb-2">
+                      <h3 className="text-lg sm:text-xl font-semibold">{item.title}</h3>
+                      <p className="text-xs sm:text-sm opacity-90 mt-1 mb-3">
                         {item.date} • {item.category}
                       </p>
                       <motion.button
-                        whileHover={{ x: 5 }}
-                        transition={{ type: "spring", stiffness: 200 }}
-                        className="mt-2 text-sm font-medium border-b-2 border-white hover:border-[#FFD5B5] hover:text-[#FFD5B5] transition-all"
+                        whileHover={{ x: 4 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="text-sm sm:text-base font-medium border-b border-white/80 hover:border-white transition-colors duration-200"
+                        aria-label={`Watch full video testimonial: ${item.title}`}
                       >
                         WATCH NOW →
                       </motion.button>
@@ -105,20 +120,19 @@ export default function HomeTestimonials() {
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-24 h-24 rounded-full object-cover border-2 border-white/40 mb-3 mx-auto"
+                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-white/50 mb-3 mx-auto shadow-md"
                       />
-                      <h3 className="text-lg font-semibold">{item.name}</h3>
-                      <p className="text-sm opacity-80 mb-2">
-                        {item.designation}
-                      </p>
-                      <p className="text-[15px] leading-relaxed opacity-90 line-clamp-4 mb-4 px-2">
+                      <h3 className="text-lg sm:text-xl font-semibold">{item.name}</h3>
+                      <p className="text-xs sm:text-sm opacity-90 mb-3">{item.designation}</p>
+                      <p className="text-sm sm:text-[15px] leading-relaxed opacity-95 line-clamp-4 mb-4 px-2">
                         {item.text}
                       </p>
                       <a
-                        href={item.link}
+                        href={item.link || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-medium border-b-2 border-white hover:border-[#FFD5B5] hover:text-[#FFD5B5] transition-all"
+                        className="text-sm sm:text-base font-medium border-b border-white/80 hover:border-white transition-colors duration-200 inline-block"
+                        aria-label={`Read full review by ${item.name} on Fiverr`}
                       >
                         Read on Fiverr →
                       </a>
@@ -130,57 +144,77 @@ export default function HomeTestimonials() {
           ))}
         </Swiper>
 
-        {/* ✅ Arrows — Orange Theme */}
+        {/* Navigation Arrows */}
         <button
-          className="prev-btn absolute left-0 top-1/2 -translate-y-1/2 
-          bg-white shadow-lg rounded-full p-2 md:p-3 z-20 
-          hover:bg-[#FF6B35] hover:text-white transition-all"
+          className="prev-btn absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-2.5 sm:p-3 z-30 hover:bg-[#4C93FF] hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#4C93FF]/60 group"
+          aria-label="Previous testimonial"
         >
-          <ChevronLeft size={26} className="text-[#FF6B35]" />
+          <ChevronLeft size={24} className="text-[#4C93FF] group-hover:text-white" />
         </button>
-
         <button
-          className="next-btn absolute right-0 top-1/2 -translate-y-1/2 
-          bg-white shadow-lg rounded-full p-2 md:p-3 z-20 
-          hover:bg-[#FF6B35] hover:text-white transition-all"
+          className="next-btn absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-2.5 sm:p-3 z-30 hover:bg-[#4C93FF] hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#4C93FF]/60 group"
+          aria-label="Next testimonial"
         >
-          <ChevronRight size={26} className="text-[#FF6B35]" />
+          <ChevronRight size={24} className="text-[#4C93FF] group-hover:text-white" />
         </button>
       </div>
 
-      {/* 🔹 Video Popup — Orange Close Button */}
+      {/* Video Popup */}
       <AnimatePresence>
-        {selectedVideo && (
+        {selectedVideo && isClient && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex justify-center items-center"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-sm flex justify-center items-center px-4"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Video testimonial popup"
+            onClick={() => setSelectedVideo(null)}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-[90%] md:w-[70%] lg:w-[60%] rounded-2xl overflow-hidden shadow-2xl"
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[60%] rounded-2xl overflow-hidden shadow-2xl bg-gray-900"
+              onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setSelectedVideo(null)}
-                className="absolute -top-14 left-1/2 -translate-x-1/2 z-50 bg-[#FF6B35] text-white hover:bg-[#F55C23] transition-all rounded-full shadow-xl w-12 h-12 flex items-center justify-center"
+                className="absolute -top-12 left-1/2 -translate-x-1/2 z-50 bg-[#4C93FF] text-white hover:bg-[#2A7AE4] transition-colors rounded-full shadow-lg w-12 h-12 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#4C93FF]/50"
+                aria-label="Close video"
               >
-                <X size={28} />
+                <X size={24} />
               </button>
-
               <video
                 src={selectedVideo}
                 controls
                 autoPlay
-                className="w-full h-auto rounded-2xl"
+                className="w-full h-auto aspect-video bg-black"
+                aria-label="Full testimonial video"
+                onError={(e) => console.error("Popup video failed to load:", e)}
               />
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style jsx>{`
+        .mySwiper {
+          padding: 0 40px;
+        }
+        @media (max-width: 768px) {
+          .mySwiper {
+            padding: 0 30px;
+          }
+          .prev-btn,
+          .next-btn {
+            top: calc(50% + 24px);
+          }
+        }
+      `}</style>
     </section>
   );
 }

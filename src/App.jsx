@@ -34,12 +34,7 @@ function App() {
         <Route path='/testimonials' element={<TestimonialPage/>}/>
         <Route path='/contact' element={<ContactPage/>}/>
        <Route path="/services/:id" element={<ServiceDetailPage />} />
-      
-        {/* <Route path='/about' element={<About/>}/>
-        <Route path='/services' element={<Services/>}/>
-           <Route path='/' element={<Home/>}/>
-        <Route path='/testimonials' element={<Testimonials/>}/>
-        <Route path='/contact' element={<Contact/>}/> */}
+    
       </Routes>
       <Footer/>
       <WhatsAppButton/>

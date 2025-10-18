@@ -62,44 +62,45 @@ export default function ServiceDetailPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* 🔹 Hero Section */}
-      <div className="relative w-full h-[450px] flex items-center justify-center overflow-hidden">
-        <motion.img
-          src={service.image}
-          alt={service.title}
-          className="w-full h-full object-cover"
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
-        />
-        <div className="absolute inset-0 bg-black/40"></div>
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="absolute z-20 text-white text-4xl md:text-5xl font-extrabold tracking-wide text-center px-4"
-        >
-          {service.title}
-        </motion.h1>
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
-          <svg
-            className="relative block w-full h-[80px]"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M321.39,56.44c58-10.79,114.14-30.13,172-41.86
-              C564.57,2.9,623.72-0.71,681.27,1.29
-              c60.36,2.08,119.28,13.73,178.6,24.72
-              c95.54,17.6,191.28,35.32,288.36,42.26V120H0V16.48
-              c93.55,27.17,182,47.69,275.24,56.39
-              C300.4,74.54,311.16,60.4,321.39,56.44Z"
-              className="fill-white"
-            ></path>
-          </svg>
-        </div>
-      </div>
+<div className="relative w-full h-[450px] flex items-center justify-center overflow-hidden">
+  <motion.img
+    src={service.image}
+    alt={service.title}
+    className="w-full h-full object-cover"
+    initial={{ scale: 1.1, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 1 }}
+  />
+  <div className="absolute inset-0 bg-black/40"></div>
+  <motion.h1
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    className="absolute z-20 text-white text-4xl md:text-5xl font-extrabold tracking-wide text-center px-4"
+  >
+    {/* {service.title} */}
+  </motion.h1>
 
+  {/* ✅ CLASSIC SYMMETRICAL WAVE — Left = Right, Center = Peak */}
+  <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
+    <svg
+      className="relative block w-full h-[100px]"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0,60 
+           C300,10 600,110 900,60 
+           C1000,40 1100,50 1200,60 
+           L1200,120 
+           L0,120 
+           Z"
+        className="fill-white"
+      ></path>
+    </svg>
+  </div>
+</div>
       {/* 🔹 Main Section */}
       <div className="max-w-6xl mx-auto px-5 md:px-10 py-16">
         <motion.div

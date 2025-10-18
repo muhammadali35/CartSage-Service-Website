@@ -44,21 +44,21 @@ export default function SectionHeader({ title, bgImage }) {
         <p className="text-white font-semibold">{title}</p>
       </motion.div>
 
-      {/* Bottom Wave */}
+      {/* ✅ MODERN SYMMETRICAL WAVE — Clean & Smooth */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
         <svg
-          className="relative block w-full h-[80px]"
+          className="relative block w-full h-[100px]" // Thoda height badhaya for better visibility
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
           <path
-            d="M321.39,56.44c58-10.79,114.14-30.13,172-41.86
-               C564.57,2.9,623.72-0.71,681.27,1.29
-               c60.36,2.08,119.28,13.73,178.6,24.72
-               c95.54,17.6,191.28,35.32,288.36,42.26V120H0V16.48
-               c93.55,27.17,182,47.69,275.24,56.39
-               C300.4,74.54,311.16,60.4,321.39,56.44Z"
+            d="M0,60 
+               C300,10 600,110 900,60 
+               C1000,45 1100,50 1200,60 
+               L1200,120 
+               L0,120 
+               Z"
             className="fill-white"
           ></path>
         </svg>

@@ -12,6 +12,9 @@ import TestimonialPage from "./Pages/Testimonial/TestimonialPage";
 import Contact from "./Pages/Contact/Contact";
 import Footer from './components/Layout/Footer'
 import ContactPage from "./Pages/Contact/ContactPage";
+import WhatsAppButton from "./components/WhatsAppButton";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 
@@ -21,6 +24,7 @@ function App() {
   return (
     <>
      <Router>
+      <ScrollToTop/>
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -38,6 +42,8 @@ function App() {
         <Route path='/contact' element={<Contact/>}/> */}
       </Routes>
       <Footer/>
+      <WhatsAppButton/>
+      <ScrollToTopButton/>
      </Router>
     </>
   )

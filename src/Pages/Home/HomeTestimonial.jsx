@@ -1,114 +1,154 @@
+// src/components/HomeTestimonials.jsx
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
 import { testimonials } from "../../Data/Testimonials";
 
 export default function HomeTestimonials() {
   const [selectedVideo, setSelectedVideo] = useState(null);
 
+  const autoplayOptions = {
+    delay: 1000,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  };
+
   return (
-    <section className="py-20 bg-white px-6 md:px-12 font-sans">
+    <section className="py-20 bg-white px-4 md:px-12 font-sans overflow-hidden relative">
       {/* Title */}
       <motion.h1
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-extrabold text-center mb-14 text-gray-900"
+        className="text-4xl md:text-5xl font-extrabold text-center mb-14 text-black"
       >
         What Our Clients Say
       </motion.h1>
 
-      {/* Swiper */}
-      <Swiper
-        modules={[Autoplay]}
-        spaceBetween={30}
-        slidesPerView={1}
-        autoplay={{
-          delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: false,
+      <div
+        className="relative max-w-7xl mx-auto"
+        style={{
+          perspective: "1200px",
+          transformStyle: "preserve-3d",
         }}
-        speed={4500}
-        loop={true}
-        freeMode={true}
-        grabCursor={true}
-        breakpoints={{
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        className="max-w-7xl mx-auto"
       >
-        {testimonials.map((item, index) => (
-          <SwiperSlide key={item.id}>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="rounded-2xl shadow-2xl bg-gradient-to-br from-indigo-500 to-purple-600 p-6 md:p-8 h-[420px] flex flex-col justify-between items-center text-center text-white cursor-pointer transform hover:-translate-y-2 transition-all duration-500"
-              onClick={() => item.video && setSelectedVideo(item.video)}
-            >
-              {/* 🎥 If video testimonial */}
-              {item.video ? (
-                <>
-                  <div className="w-full h-56 rounded-xl overflow-hidden mb-4 shadow-md">
-                    <video
-                      src={item.video}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">{item.title}</h3>
-                    <p className="text-sm opacity-80 mt-1">
-                      {item.date} • {item.category}
-                    </p>
-                    <motion.button
-                      whileHover={{ x: 5 }}
-                      transition={{ type: "spring", stiffness: 200 }}
-                      className="mt-4 inline-block text-sm font-medium border-b-2 border-white hover:text-yellow-300 transition-all"
-                    >
-                      WATCH NOW →
-                    </motion.button>
-                  </div>
-                </>
-              ) : (
-                /* 💬 Text testimonials */
-                <>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-20 h-20 rounded-full object-cover border-2 border-white/40 mb-4"
-                  />
-                  <div>
-                    <h3 className="text-xl font-semibold">{item.name}</h3>
-                    <p className="text-sm opacity-80">{item.designation}</p>
-                    <p className="mt-3 text-sm leading-relaxed opacity-90 line-clamp-4">
-                      {item.text}
-                    </p>
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-block text-sm font-medium border-b-2 border-white hover:text-yellow-300 transition-all"
-                    >
-                      Read on Fiverr →
-                    </a>
-                  </div>
-                </>
+        <Swiper
+          modules={[Navigation, Autoplay]}
+          navigation={{
+            nextEl: ".next-btn",
+            prevEl: ".prev-btn",
+          }}
+          autoplay={autoplayOptions}
+          slidesPerView={3}
+          spaceBetween={10}
+          centeredSlides={true}
+          loop={true}
+          speed={800}
+          className="mySwiper"
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
+          {testimonials.map((item) => (
+            <SwiperSlide key={item.id}>
+              {({ isActive, isPrev, isNext }) => (
+                <motion.div
+                  className={`rounded-2xl shadow-xl p-6 h-[420px] text-white text-center cursor-pointer transition-all duration-700 bg-gradient-to-br from-[#FF6B35] to-[#F55C23]`} // ✅ Brand Orange Gradient
+                  onClick={() => item.video && setSelectedVideo(item.video)}
+                  style={{
+                    transform: isActive
+                      ? "translateZ(100px) scale(1.05) rotateY(0deg)"
+                      : isPrev
+                      ? "translateX(-50px) rotateY(25deg) scale(0.9)"
+                      : isNext
+                      ? "translateX(50px) rotateY(-25deg) scale(0.9)"
+                      : "scale(0.85)",
+                    opacity: isActive ? 1 : 0.7,
+                    transition: "all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                  }}
+                >
+                  {/* 🎥 Video testimonial */}
+                  {item.video ? (
+                    <>
+                      <div className="w-full h-52 rounded-xl overflow-hidden mb-4 shadow-md">
+                        <video
+                          src={item.video}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                        />
+                      </div>
+                      <h3 className="text-lg font-semibold">{item.title}</h3>
+                      <p className="text-xs opacity-80 mt-1 mb-2">
+                        {item.date} • {item.category}
+                      </p>
+                      <motion.button
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring", stiffness: 200 }}
+                        className="mt-2 text-sm font-medium border-b-2 border-white hover:border-[#FFD5B5] hover:text-[#FFD5B5] transition-all"
+                      >
+                        WATCH NOW →
+                      </motion.button>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-24 h-24 rounded-full object-cover border-2 border-white/40 mb-3 mx-auto"
+                      />
+                      <h3 className="text-lg font-semibold">{item.name}</h3>
+                      <p className="text-sm opacity-80 mb-2">
+                        {item.designation}
+                      </p>
+                      <p className="text-[15px] leading-relaxed opacity-90 line-clamp-4 mb-4 px-2">
+                        {item.text}
+                      </p>
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium border-b-2 border-white hover:border-[#FFD5B5] hover:text-[#FFD5B5] transition-all"
+                      >
+                        Read on Fiverr →
+                      </a>
+                    </>
+                  )}
+                </motion.div>
               )}
-            </motion.div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      {/* 🔹 Video Popup */}
+        {/* ✅ Arrows — Orange Theme */}
+        <button
+          className="prev-btn absolute left-0 top-1/2 -translate-y-1/2 
+          bg-white shadow-lg rounded-full p-2 md:p-3 z-20 
+          hover:bg-[#FF6B35] hover:text-white transition-all"
+        >
+          <ChevronLeft size={26} className="text-[#FF6B35]" />
+        </button>
+
+        <button
+          className="next-btn absolute right-0 top-1/2 -translate-y-1/2 
+          bg-white shadow-lg rounded-full p-2 md:p-3 z-20 
+          hover:bg-[#FF6B35] hover:text-white transition-all"
+        >
+          <ChevronRight size={26} className="text-[#FF6B35]" />
+        </button>
+      </div>
+
+      {/* 🔹 Video Popup — Orange Close Button */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
@@ -124,15 +164,13 @@ export default function HomeTestimonials() {
               transition={{ duration: 0.3 }}
               className="relative w-[90%] md:w-[70%] lg:w-[60%] rounded-2xl overflow-hidden shadow-2xl"
             >
-              {/* ❌ Close Button */}
               <button
                 onClick={() => setSelectedVideo(null)}
-                className="absolute -top-14 left-1/2 -translate-x-1/2 z-50 bg-white/90 text-gray-900 hover:bg-red-600 hover:text-white transition-all rounded-full shadow-xl w-12 h-12 flex items-center justify-center border border-gray-300"
+                className="absolute -top-14 left-1/2 -translate-x-1/2 z-50 bg-[#FF6B35] text-white hover:bg-[#F55C23] transition-all rounded-full shadow-xl w-12 h-12 flex items-center justify-center"
               >
                 <X size={28} />
               </button>
 
-              {/* Video */}
               <video
                 src={selectedVideo}
                 controls

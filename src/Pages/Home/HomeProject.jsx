@@ -1,8 +1,9 @@
+// src/components/HomeProject.jsx
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { projects } from "../../Data/ProjectData";
-import { X, Plus } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const categories = ["Amazon", "Web Development", "eBay", "Walmart"];
 
@@ -18,6 +19,18 @@ export default function HomeProject() {
     const timer = setTimeout(() => setLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
+
+  // ✅ BODY SCROLL LOCK — Modal open hone par
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject]);
 
   // ✅ Only show first 3 projects of the selected category
   const filteredProjects = projects
@@ -36,6 +49,20 @@ export default function HomeProject() {
     );
   };
 
+  const prevImage = () => {
+    if (!selectedProject?.screenshots) return;
+    setGalleryIndex((prev) =>
+      prev === 0 ? selectedProject.screenshots.length - 1 : prev - 1
+    );
+  };
+
+  const getImages = (project) => {
+    if (project.screenshots && project.screenshots.length > 0) {
+      return project.screenshots;
+    }
+    return [project.image];
+  };
+
   return (
     <section
       ref={ref}
@@ -51,7 +78,7 @@ export default function HomeProject() {
         Discover Our Latest Projects
       </motion.h1>
 
-      {/* Category Buttons */}
+      {/* ✅ CATEGORY BUTTONS — Aapke original jaisa hi (no change) */}
       <motion.div
         className="flex flex-wrap justify-center gap-4 mb-16"
         initial={{ opacity: 0, y: 20 }}
@@ -64,8 +91,8 @@ export default function HomeProject() {
             onClick={() => setActiveCategory(cat)}
             className={`px-6 py-3 rounded-md font-semibold text-base transition-all duration-300 ${
               activeCategory === cat
-                ? "bg-gradient-to-r from-teal-500 to-green-400 text-white shadow-md"
-                : "bg-white text-teal-600 border border-teal-400 hover:bg-gradient-to-r hover:from-teal-500 hover:to-green-400 hover:text-white"
+                ? "bg-indigo-600 text-white shadow-md"
+                : "bg-white text-[#FF6B35] border hover:bg-[#FF6B35] hover:text-white"
             }`}
           >
             {cat}
@@ -92,6 +119,10 @@ export default function HomeProject() {
               ))
             : filteredProjects.map((project, i) => (
                 <motion.div
+                 onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProject(project);
+                      }}
                   key={project.id}
                   className="relative rounded-xl overflow-hidden shadow-xl cursor-pointer group bg-white"
                   whileHover={{
@@ -105,37 +136,21 @@ export default function HomeProject() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-[360px] object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-[360px] object-cover"
                   />
 
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-gray-700/100 via-gray-300/60 to-transparent
-                               translate-y-full group-hover:translate-y-0 transition-all duration-700 ease-out
-                               flex flex-col justify-end text-center p-6"
-                  >
-                    <motion.div
-                      initial={{ y: 30, opacity: 0 }}
-                      whileInView={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.4 }}
-                      className="bg-white/20 backdrop-blur-lg rounded-xl p-4 w-full border border-white/30 shadow-inner"
+                  {/* ✅ BUTTON: Bottom se slowly slide up — NO OVERLAY */}
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:bottom-6 transition-all duration-500 ease-out pointer-events-none z-10">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProject(project);
+                      }}
+                      className="px-7 py-3 bg-indigo-600 text-white font-semibold rounded-2xl shadow-lg hover:bg-indigo-800 transition pointer-events-auto"
                     >
-                      <h3 className="text-white text-lg font-bold mb-2 drop-shadow-md">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-100 text-sm mb-4">
-                        {project.desc}
-                      </p>
-                      <button
-                        onClick={() => setSelectedProject(project)}
-                        className="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-semibold text-white rounded-full shadow-lg transition-all duration-500
-                                    bg-indigo-600 hover:from-green-400 hover:to-teal-500
-                                   hover:shadow-[0_0_20px_rgba(20,184,166,0.6)]"
-                      >
-                        <span className="relative z-10">View More</span>
-                        <span className="absolute inset-0 bg-white/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
-                      </button>
-                    </motion.div>
-                  </motion.div>
+                      View More
+                    </button>
+                  </div>
                 </motion.div>
               ))}
         </motion.div>
@@ -145,17 +160,19 @@ export default function HomeProject() {
       <AnimatePresence>
         {selectedProject && (
           <motion.div
-            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center backdrop-blur-sm"
+            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={closeModal}
           >
             <motion.div
-              className="relative bg-white rounded-3xl shadow-2xl w-[95%] md:w-[80%] lg:w-[65%] max-h-[90vh] overflow-y-auto p-8"
+              className="relative bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[95vh] flex flex-col"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.4 }}
+              onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={closeModal}
@@ -164,61 +181,79 @@ export default function HomeProject() {
                 <X size={28} />
               </button>
 
-              {selectedProject.category === "Web Development" ? (
-                <div>
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="rounded-lg w-full h-72 object-cover mb-4"
-                  />
-                  <h2 className="text-2xl font-bold mb-2 text-gray-800">
-                    {selectedProject.title}
-                  </h2>
-                  <p className="text-gray-600 mb-4">{selectedProject.desc}</p>
-                  {selectedProject.link && (
-                    <a
-                      href={selectedProject.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <button className="px-6 py-2 bg-gradient-to-r from-teal-500 to-green-400 text-white rounded-full font-medium hover:shadow-lg transition">
-                        Visit Project
-                      </button>
-                    </a>
-                  )}
-                </div>
-              ) : (
-                <div className="relative flex flex-col items-center">
+              {/* ✅ FULL-WIDTH IMAGE — No side padding */}
+              <div className="w-full mx-0 overflow-hidden rounded-t-3xl mt-1 relative hide-scrollbar">
+                <div className="w-full flex justify-center bg-gray-50">
                   <motion.img
                     key={galleryIndex}
-                    src={
-                      selectedProject.screenshots
-                        ? selectedProject.screenshots[galleryIndex]
-                        : selectedProject.image
-                    }
-                    alt="project screenshot"
-                    className="rounded-2xl w-full h-[500px] object-cover mb-6"
+                    src={getImages(selectedProject)[galleryIndex]}
+                    alt={selectedProject.title}
+                    className="w-full max-h-[60vh] h-auto object-contain"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4 }}
                   />
-                  {selectedProject.screenshots?.length > 1 && (
-                    <button
-                      onClick={nextImage}
-                      className="absolute bottom-6 right-6 bg-teal-600 p-3 rounded-full text-white shadow-lg hover:bg-teal-700 transition"
-                    >
-                      <Plus size={24} />
-                    </button>
-                  )}
-                  <h2 className="text-2xl font-semibold text-gray-800 mt-2">
-                    {selectedProject.title}
-                  </h2>
                 </div>
-              )}
+
+                {/* Arrows */}
+                {getImages(selectedProject).length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        prevImage();
+                      }}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#ff6b35] text-white p-3 rounded-full hover:bg-[#ff6b35]/70 z-20"
+                      aria-label="Previous"
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        nextImage();
+                      }}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#ff6b35] text-white p-3 rounded-full hover:bg-[#ff6b35]/70 z-20"
+                      aria-label="Next"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              <div className="p-6 pt-4 pb-8 text-center">
+                <h2 className="text-2xl font-bold mb-2 text-gray-800">
+                  {selectedProject.title}
+                </h2>
+                <p className="text-gray-600 mb-4">{selectedProject.desc}</p>
+                {selectedProject.link && (
+                  <a
+                    href={selectedProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="px-6 py-2 bg-gradient-to-r from-teal-500 to-green-400 text-white rounded-full font-medium hover:shadow-lg transition">
+                      Visit Project
+                    </button>
+                  </a>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ✅ HIDE SCROLLBAR GLOBALLY */}
+      <style jsx global>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 }

@@ -53,10 +53,10 @@ export default function ServicesSection() {
               to={`/services/${service.id}`}
               className="inline-flex items-center font-semibold text-black group"
             >
-              <span className="border-b border-black pb-[2px] group-hover:border-transparent transition-all duration-200">
+              <span className="border-b border-black pb-[2px] group-hover:border-transparent transition-all duration-200 text-[#FF6B35]">
                 View Details
               </span>
-              <span className="ml-1 group-hover:translate-x-1 transition-transform">
+              <span className="ml-1 group-hover:translate-x-1 transition-transform text-[#FF6B35]">
                 ↗
               </span>
             </Link>

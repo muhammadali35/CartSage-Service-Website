@@ -16,8 +16,8 @@ const Home = () => {
      <Services/>
      <BrandServicesSection/>
      <HomeProject/>
-     <HomeTestimonials/>
      <CDATASection/>
+     <HomeTestimonials/>
       
     </>
   )

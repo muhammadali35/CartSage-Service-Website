@@ -10,20 +10,19 @@ const ScrollToTopButton = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-      
-      // Show button after 300px
+    
       setIsVisible(scrollY > 300);
 
-      // Calculate dynamic border width: min 2px, max 6px
+      
       if (windowHeight > 0) {
-        const progress = Math.min(scrollY / windowHeight, 1); // 0 to 1
-        const newBorderWidth = 2 + Math.floor(progress * 4); // 2px → 6px
+        const progress = Math.min(scrollY / windowHeight, 1);
+        const newBorderWidth = 2 + Math.floor(progress * 4); 
         setBorderWidth(newBorderWidth);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // initial call
+    handleScroll(); 
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -40,7 +39,7 @@ const ScrollToTopButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-40 right-6 bg-[#FF6B35] -600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-all duration-300 z-50"
+      className="fixed bottom-28 right-6 bg-[#FF6B35]  text-white p-3 rounded-full shadow-lg hover:bg-[#4C93FF] transition-all duration-300 z-50"
       style={{
         borderWidth: `${borderWidth}px`,
         borderStyle: 'solid',

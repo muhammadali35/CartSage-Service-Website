@@ -66,7 +66,7 @@ export default function Project() {
             onClick={() => setActiveCategory(cat)}
             className={`px-6 py-3 rounded-md font-semibold text-base transition-all duration-300 ${
               activeCategory === cat
-                ? "bg-indigo-600 text-white shadow-md"
+                ? "bg-[#4C93FF] text-white shadow-md"
                 : "bg-white text-[#FF6B35] border hover:bg-[#FF6B35] hover:text-white"
             }`}
           >
@@ -115,7 +115,7 @@ export default function Project() {
                         e.stopPropagation();
                         setSelectedProject(project);
                       }}
-                      className="px-7 py-3 bg-indigo-600 text-white font-semibold rounded-2xl shadow-lg hover:bg-indigo-800 transition pointer-events-auto"
+                      className="px-6 py-2.5 bg-[#4C93FF] text-white font-semibold rounded-xl shadow-md hover:bg-[#3a84f0] transition pointer-events-auto text-sm sm:text-base"
                     >
                       View More
                     </button>

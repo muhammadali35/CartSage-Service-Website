@@ -46,11 +46,11 @@ export const projects = [
   {
     id: 4,
     category: "Web Development",
-    title: "Decentralized Platform",
+    title: "Trckend Hotel Booking Website",
     desc: "Blockchain-based app with wallet integration and smart contract deployment.",
     image:
       "https://images.unsplash.com/photo-1614644147727-1d61d93c1bb4?auto=format&fit=crop&w=900&q=80",
-    link: "https://example.com",
+    link: "https://trackendhotel.netlify.app/",
   },
   {
     id: 5,

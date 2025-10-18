@@ -5,6 +5,10 @@ import { useState } from "react";
 import emailjs from "emailjs-com";
 import { servicesData } from "../../Data/ServiceData";
 import { X } from "lucide-react";
+import servicehero from "../../assets/hero3.jpg";
+import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
+;
 
 export default function ServiceDetailPage() {
   const { id } = useParams();
@@ -14,6 +18,7 @@ export default function ServiceDetailPage() {
     name: "",
     contact: "",
     work: "",
+    email: "", // Added email field to match templateParams
   });
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -28,9 +33,21 @@ export default function ServiceDetailPage() {
 
   const Icon = service.icon;
 
-  // Handle input
+  const ServiceID = "service_90wsw7f";
+  const TemplateID = "template_3k3cbrv"; 
+  const UserID = "dgKWBXF_Ub2bbtZXr";
+
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const templateParams = {
+    Service: service.title,
+    Name: formData.name,
+    email: formData.email, // Ensure this matches a template placeholder
+    contact: formData.contact,
+    Work_Detail: formData.work,
+    time: new Date().toLocaleString(),
+  };
 
   // Handle send email
   const handleSubmit = (e) => {
@@ -38,33 +55,31 @@ export default function ServiceDetailPage() {
     setSending(true);
 
     emailjs
-      .send(
-        "service_xxxxxx", // 🔹 Your EmailJS service ID
-        "template_xxxxxx", // 🔹 Your EmailJS template ID
-        {
-          service_name: service.title,
-          user_name: formData.name,
-          user_contact: formData.contact,
-          user_work: formData.work,
-        },
-        "public_key_xxxxxx" // 🔹 Your public key
-      )
+      .send(ServiceID, TemplateID, templateParams, UserID) 
       .then(
-        () => {
+        (response) => {
+          console.log("EmailJS Success:", response);
           setSuccess(true);
           setSending(false);
-          setFormData({ name: "", contact: "", work: "" });
+          setFormData({ name: "", contact: "", work: "", email: "" });
         },
-        () => setSending(false)
-      );
+        (error) => {
+          console.error("EmailJS Error:", error);
+          setSending(false);
+        }
+      )
+      .catch((err) => {
+        console.error("EmailJS Catch Error:", err.text, err);
+        setSending(false);
+      });
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* 🔹 Hero Section */}
-<div className="relative w-full h-[450px] flex items-center justify-center overflow-hidden">
+   <div className="relative w-full h-[450px] flex flex-col items-center justify-center overflow-hidden">
   <motion.img
-    src={service.image}
+    src={servicehero}
     alt={service.title}
     className="w-full h-full object-cover"
     initial={{ scale: 1.1, opacity: 0 }}
@@ -76,10 +91,26 @@ export default function ServiceDetailPage() {
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
-    className="absolute z-20 text-white text-4xl md:text-5xl font-extrabold tracking-wide text-center px-4"
+    className="absolute z-20 text-white text-4xl md:text-5xl font-extrabold tracking-wide text-left px-4 mt-3"
   >
-    {/* {service.title} */}
+    {service.title}
   </motion.h1>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.5, duration: 0.6 }}
+    className="relative z-10 mt-2 pl-4 text-white/90 text-lg" // Adjusted mt-2 for closeness, pl-4 for left alignment
+  >
+    {/* <Link
+      to="/home"
+      className="hover:text-white text-blue-700 transition-colors duration-300 font-medium"
+    >
+      Home
+    </Link>
+    <ChevronRight className="w-5 h-5 text-white/70 inline-block ml-2 mr-2" />
+    <span className="text-white font-semibold">{service.title}</span> */}
+  
+  </motion.div>
 
   {/* ✅ CLASSIC SYMMETRICAL WAVE — Left = Right, Center = Peak */}
   <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
@@ -211,6 +242,19 @@ export default function ServiceDetailPage() {
                       type="text"
                       name="name"
                       value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none"

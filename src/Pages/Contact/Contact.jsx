@@ -18,6 +18,22 @@ export default function Contact() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  
+  const ServiceID = "service_90wsw7f";
+  const TemplateID = "template_3k3cbrv"; 
+  const UserID = "dgKWBXF_Ub2bbtZXr";
+
+ 
+
+  const templateParams = {
+    Service: formData.service,
+    Name: formData.name,
+    email: formData.email, // Ensure this matches a template placeholder
+    contact: formData.phone,
+    Work_Detail: formData.message,
+    time: new Date().toLocaleString(),
+    Location: formData.location,
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -25,10 +41,10 @@ export default function Contact() {
 
     emailjs
       .send(
-        "YOUR_SERVICE_ID", // replace with your EmailJS service ID
-        "YOUR_TEMPLATE_ID", // replace with your template ID
-        formData,
-        "YOUR_PUBLIC_KEY" // replace with your public key
+        ServiceID,
+        TemplateID,
+        templateParams,
+        UserID
       )
       .then(
         () => {

@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { motion, AnimatePresence } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // ✅ CSS import
 
 export default function ConsultationPopup({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -9,14 +11,13 @@ export default function ConsultationPopup({ isOpen, onClose }) {
     email: "",
     phone: "",
     service: "",
-    message: "", // Added message field
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
   const ServiceID = "service_90wsw7f";
-  const TemplateID = "template_s0wykbn"; 
+  const TemplateID = "template_s0wykbn";
   const UserID = "dgKWBXF_Ub2bbtZXr";
 
   useEffect(() => {
@@ -33,31 +34,41 @@ export default function ConsultationPopup({ isOpen, onClose }) {
     setIsSubmitting(true);
     setSubmitError("");
 
-    console.log("EmailJS Config:", { ServiceID, TemplateID, UserID });
-    console.log("Form Data before send:", formData);
-
     const templateParams = {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
       service: formData.service,
-      message: formData.message, // Include message if added
-      time: new Date().toLocaleString(), // Generate current time
+      message: formData.message,
+      time: new Date().toLocaleString(),
     };
 
     emailjs
       .send(ServiceID, TemplateID, templateParams, UserID)
       .then((response) => {
-        console.log("EmailJS Success:", response);
-        setSubmitSuccess(true);
+        // ✅ Show toast on success
+        toast.success("Message sent! We'll contact you soon.", {
+          position: "top-center",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
         setFormData({ name: "", email: "", phone: "", service: "", message: "" });
-        setTimeout(() => {
-          setSubmitSuccess(false);
-          onClose();
-        }, 2000);
+        setTimeout(onClose, 1500);
       })
       .catch((err) => {
-        console.error("EmailJS error:", err.text, err);
+        toast.error("Failed to send. Please try again.", {
+          position: "left-top",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
         setSubmitError(err.text || "Failed to send. Please try again.");
       })
       .finally(() => {
@@ -65,49 +76,57 @@ export default function ConsultationPopup({ isOpen, onClose }) {
       });
   };
 
+  // Body scroll lock
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = "0";
     } else {
       document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
     }
-
     return () => {
       document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
     };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
-          <motion.div
-            className="bg-white rounded-xl p-6 w-full max-w-md mx-4 shadow-2xl"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-2xl font-bold text-black mb-4 text-center">
-              Book Your Free Consultation
-            </h2>
+    <>
+      {/* ✅ ToastContainer: sirf is component ke liye */}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ marginTop: '16px' }} 
+      />
 
-            {submitSuccess ? (
-              <div className="text-green-600 text-center py-4">
-                ✅ Message sent! We'll contact you soon.
-              </div>
-            ) : (
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          >
+            <motion.div
+              className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-5 text-center">
+                Book Your Free Consultation
+              </h2>
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                   type="text"
@@ -116,7 +135,7 @@ export default function ConsultationPopup({ isOpen, onClose }) {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4C93FF] focus:border-transparent transition"
                 />
                 <input
                   type="email"
@@ -125,7 +144,7 @@ export default function ConsultationPopup({ isOpen, onClose }) {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4C93FF] focus:border-transparent transition"
                 />
                 <input
                   type="tel"
@@ -134,7 +153,7 @@ export default function ConsultationPopup({ isOpen, onClose }) {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4C93FF] focus:border-transparent transition"
                 />
                 <input
                   type="text"
@@ -143,46 +162,46 @@ export default function ConsultationPopup({ isOpen, onClose }) {
                   value={formData.service}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4C93FF] focus:border-transparent transition"
                 />
                 <textarea
                   name="message"
                   placeholder="Your Message (Optional)"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4C93FF] focus:border-transparent transition"
                   rows="3"
                 />
+
                 {submitError && (
-                  <p className="text-red-500 text-sm text-center p-2 bg-red-50 rounded">
+                  <div className="text-red-500 text-sm text-center p-3 bg-red-50 rounded-xl">
                     {submitError}
-                  </p>
+                  </div>
                 )}
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-3 rounded-lg font-semibold text-white ${
+                  className={`w-full py-3 rounded-xl font-semibold text-white transition ${
                     isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-black hover:bg-gray-800"
+                      ? "bg-gray-300 cursor-not-allowed"
+                      : "bg-[#4C93FF] hover:bg-[#3a7fd9] active:scale-[0.98]"
                   }`}
                 >
                   {isSubmitting ? "Sending..." : "Send Request"}
                 </button>
               </form>
-            )}
 
-            {!submitSuccess && (
               <button
                 onClick={onClose}
-                className="mt-4 w-full text-gray-600 hover:text-black"
+                className="mt-4 w-full text-[#4C93FF] font-medium hover:text-white p-2 rounded-xl border-2 border-[#4C93FF] transition hover:bg-[#4C93FF]"
               >
                 Cancel
               </button>
-            )}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

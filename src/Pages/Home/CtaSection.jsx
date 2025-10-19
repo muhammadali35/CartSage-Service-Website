@@ -11,7 +11,7 @@ export default function CtaSection() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
-    <section className="relative flex flex-col items-center justify-center text-center min-h-[60vh] px-4 sm:px-6 md:px-8 py-20 md:py-28 bg-[#0F172A] overflow-hidden font-sans">
+    <section className="relative flex flex-col items-center justify-center text-center min-h-[60vh] px-4 sm:px-6 md:px-8 py-20 md:py-28 bg-[#0F172A] overflow-hidden font-serif">
      
       <motion.div
         className="absolute -top-24 -right-24 w-80 h-80 rounded-full blur-3xl opacity-20"
@@ -45,10 +45,9 @@ export default function CtaSection() {
         }}
       />
 
-      {/* Content */}
       <div className="relative z-10 max-w-4xl w-full">
         <motion.h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight font-serif"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -60,7 +59,7 @@ export default function CtaSection() {
         </motion.h1>
 
         <motion.p
-          className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-serif"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -79,12 +78,11 @@ export default function CtaSection() {
           <Button
             content="LET’S BOOK A FREE CONSULTATION"
             onClick={() => setIsPopupOpen(true)}
-            className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 `}
+            className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 font-serif`}
           />
         </motion.div>
       </div>
 
-      {/* Popup */}
       <ConsultationPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}

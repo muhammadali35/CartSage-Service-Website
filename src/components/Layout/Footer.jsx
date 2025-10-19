@@ -5,22 +5,44 @@ import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
   FaDribbble,
   FaMapMarkerAlt,
   FaPhone,
   FaEnvelope,
+  FaLinkedin,
 } from "react-icons/fa";
 import { TbBrandFiverr } from "react-icons/tb";
-
 
 export default function Footer() {
   const [activeLink, setActiveLink] = useState(null);
   const navItems = ["Home", "Services", "Projects", "Testimonials", "Contact"];
 
+  const socialLinks = [
+    {
+      Icon: FaFacebookF,
+      href: "https://www.facebook.com/cartsage  ",
+      label: "Follow us on Facebook",
+    },
+    {
+      Icon: FaInstagram,
+      href: "https://www.instagram.com/cartsage  ",
+      label: "Follow us on Instagram",
+    },
+    {
+      Icon: FaLinkedin,
+      href: "https://www.linkedin.com/in/muhammad-usman-irshad-b302a4251?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      label: "Follow us on LinkedIn",
+    },
+    {
+      Icon: TbBrandFiverr,
+      href: "  https://www.fiverr.com/usman10a  ",
+      label: "Follow us on Fiverr",
+    },
+  ];
+
   return (
     <footer
-      className="relative bg-[#262D3E] text-white px-4 sm:px-6 lg:px-16 py-12 sm:py-16 lg:py-20 border-t border-gray-800 overflow-hidden font-sans"
+      className="relative bg-[#262D3E] text-white px-4 sm:px-6 lg:px-16 py-12 sm:py-16 lg:py-20 border-t border-gray-800 overflow-hidden font-serif"
       role="contentinfo"
       aria-label="Footer"
     >
@@ -35,24 +57,24 @@ export default function Footer() {
       <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 max-w-7xl mx-auto">
         {/* LEFT COLUMN: Branding */}
         <div>
-          <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+          <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 font-serif">
             CartSage
           </h3>
-          <p className="text-white text-sm sm:text-base leading-relaxed max-w-xs">
+          <p className="text-white text-sm sm:text-base leading-relaxed max-w-xs font-serif">
             Crafting digital experiences that inspire, engage, and convert.
           </p>
         </div>
 
         {/* CENTER COLUMN: Links */}
         <div>
-          <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white">
+          <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white font-serif">
             Quick Links
           </h4>
           <ul className="space-y-3">
             {navItems.map((link, i) => (
               <motion.li
                 key={i}
-                className="relative w-fit cursor-pointer group font-medium text-white"
+                className="relative w-fit cursor-pointer group font-medium text-white font-serif"
                 onClick={() => setActiveLink(link)}
                 whileHover={{ x: 4 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -63,7 +85,7 @@ export default function Footer() {
                     activeLink === link
                       ? "text-[#4C93FF]"
                       : "group-hover:text-[#4C93FF]"
-                  } transition-colors duration-300 text-sm sm:text-base`}
+                  } transition-colors duration-300 text-sm sm:text-base font-serif`}
                   aria-label={`Navigate to ${link} page`}
                 >
                   {link}
@@ -83,21 +105,21 @@ export default function Footer() {
 
         {/* RIGHT COLUMN: Contact */}
         <div>
-          <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white">
+          <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white font-serif">
             Get in Touch
           </h4>
-          <div className="space-y-4 text-White text-sm sm:text-base">
+          <div className="space-y-4 text-white text-sm sm:text-base font-serif">
             <div className="flex items-start gap-3">
               <FaMapMarkerAlt className="mt-1 text-[#4C93FF] flex-shrink-0" />
               <span>27 Division St, New York, NY 10002, USA</span>
             </div>
             <div className="flex items-center gap-3">
               <FaPhone className="text-[#4C93FF] flex-shrink-0" />
-              <span className="font-medium text-white">+1 800 123 654 987</span>
+              <span className="font-medium text-white">+1 223 371 1195</span>
             </div>
             <div className="flex items-center gap-3">
               <FaEnvelope className="text-[#4C93FF] flex-shrink-0" />
-              <span>hello@themegenix.com</span>
+              <span>hello@CartSage.com</span>
             </div>
           </div>
         </div>
@@ -111,21 +133,22 @@ export default function Footer() {
         viewport={{ once: true }}
         className="relative z-10 mt-12 sm:mt-16 pt-8 border-t border-white max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6"
       >
-        <p className="text-xs sm:text-sm text-white text-center">
+        <p className="text-xs sm:text-sm text-white text-center font-serif">
           © {new Date().getFullYear()}{" "}
-          <span className="font-semibold text-[#4C93FF]">
-CartSage</span>. All rights reserved.
+          <span className="font-semibold text-[#4C93FF]">CartSage</span>. All rights reserved.
         </p>
 
         <div className="flex gap-4 sm:gap-5">
-          {[FaFacebookF, FaInstagram, FaTwitter, TbBrandFiverr].map((Icon, i) => (
+          {socialLinks.map(({ Icon, href, label }, i) => (
             <motion.a
               key={i}
-              href="#"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -3, scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="text-white hover:text-[#4C93FF] transition-colors duration-200"
-              aria-label={`Follow us on ${["Facebook", "Instagram", "Twitter", "Dribbble"][i]}`}
+              aria-label={label}
             >
               <Icon className="text-lg sm:text-xl" />
             </motion.a>

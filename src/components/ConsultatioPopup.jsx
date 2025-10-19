@@ -41,8 +41,8 @@ export default function ConsultationPopup({ isOpen, onClose }) {
       email: formData.email,
       phone: formData.phone,
       service: formData.service,
-      message: formData.message, // Include message if added
-      time: new Date().toLocaleString(), // Generate current time
+      message: formData.message,
+      time: new Date().toLocaleString(), 
     };
 
     emailjs

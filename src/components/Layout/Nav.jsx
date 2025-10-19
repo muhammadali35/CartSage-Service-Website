@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion } from "framer-motion";
-import logo from '../../assets/logo.jpg';
+import logo from "../../assets/logo.jpg";
+import Button from "../Button";
+import ConsultationPopup from "../ConsultatioPopup";
 
 export default function Navbar() {
   const [sticky, setSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -19,7 +22,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = ["Home", "Services", "Projects", "Testimonials", "Contact"];
+  const navItems = ["Home", "Services", "Projects", "Contact"];
 
   const getCurrentPage = () => {
     const path = location.pathname;
@@ -29,10 +32,13 @@ export default function Navbar() {
 
   const currentPage = getCurrentPage();
 
-  // Animation variants for mobile menu
   const menuVariants = {
     open: { x: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" } },
-    closed: { x: "100%", opacity: 0, transition: { duration: 0.4, ease: "easeIn" } }
+    closed: {
+      x: "100%",
+      opacity: 0,
+      transition: { duration: 0.4, ease: "easeIn" },
+    },
   };
 
   return (
@@ -61,27 +67,37 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-6 lg:space-x-10 items-center">
-            {navItems.map((item) => (
-              <li key={item} className="relative group">
-                <Link
-                  to={`/${item.toLowerCase() === "home" ? "" : item.toLowerCase()}`}
-                  className={`font-medium transition-colors duration-300 text-base lg:text-lg ${
-                    currentPage === item
-                      ? "text-[#4C93FF] text-shadow-sm"
-                      : "text-white hover:text-[#4C93FF]"
-                  }`}
-                >
-                  {item}
-                </Link>
-                <span
-                  className={`absolute bottom-[-6px] left-0 h-[2px] bg-[#4C93FF] transition-all duration-300 ${
-                    currentPage === item ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
-                ></span>
-              </li>
-            ))}
-          </ul>
+          <div className="hidden md:flex space-x-6 lg:space-x-10 items-center">
+            <ul className="flex space-x-6 lg:space-x-10 items-center">
+              {navItems.map((item) => (
+                <li key={item} className="relative group">
+                  <Link
+                    to={`/${
+                      item.toLowerCase() === "home" ? "" : item.toLowerCase()
+                    }`}
+                    className={`font-medium transition-colors duration-300 text-base lg:text-lg ${
+                      currentPage === item
+                        ? "text-[#4C93FF] text-shadow-sm"
+                        : "text-white hover:text-[#4C93FF]"
+                    }`}
+                  >
+                    {item}
+                  </Link>
+                  <span
+                    className={`absolute bottom-[-6px] left-0 h-[2px] bg-[#4C93FF] transition-all duration-300 ${
+                      currentPage === item ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  ></span>
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              content="book Free Consultation"
+              onClick={() => setPopupOpen(true)}
+              className="!bg-[#FF6B35] hover:!bg-[#3a84f0] text-white px-6 py-2.5 font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-300 pointer-events-auto font-serif"
+            />
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -125,6 +141,16 @@ export default function Navbar() {
             {item}
           </Link>
         ))}
+
+        {/* ✅ Mobile Free Consultation Button */}
+        <Button
+          content="Free Consultation"
+          onClick={() => {
+            setMenuOpen(false);
+            setPopupOpen(true);
+          }}
+          className="mt-4"
+        />
       </motion.div>
 
       {/* Backdrop for mobile menu */}
@@ -138,6 +164,13 @@ export default function Navbar() {
           transition={{ duration: 0.3 }}
         ></motion.div>
       )}
+
+      {/* ✅ Popup */}
+   <ConsultationPopup
+  isOpen={popupOpen}
+  onClose={() => setPopupOpen(false)}
+/>
+
 
       <style jsx>{`
         .text-shadow-sm {

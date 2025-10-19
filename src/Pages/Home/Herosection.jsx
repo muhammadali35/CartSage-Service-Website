@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import hero from "../../assets/hero5.jpg";
+import hero from "../../assets/optimized/hero5.webp";
 import Button from "../../components/Button";
 import { Link } from "react-router-dom";
 

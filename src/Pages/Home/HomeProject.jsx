@@ -1,9 +1,9 @@
-// src/components/HomeProject.jsx
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { projects } from "../../Data/ProjectData";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Button from "../../components/Button"; // ✅ Added import
 
 const categories = ["Amazon", "Web Development", "eBay", "Walmart"];
 const BRAND_COLOR = "#4C93FF";
@@ -22,14 +22,9 @@ export default function HomeProject() {
   }, []);
 
   useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    if (selectedProject) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+    return () => (document.body.style.overflow = "unset");
   }, [selectedProject]);
 
   const filteredProjects = projects
@@ -59,12 +54,11 @@ export default function HomeProject() {
       : [project.image];
   };
 
-  // ✅ Route mapping for each category (adjust as per your actual routes)
   const getCategoryRoute = (category) => {
     const map = {
-      "Amazon": "/projects",
-      "eBay": "/projects",
-      "Walmart": "/projects",
+      Amazon: "/projects",
+      eBay: "/projects",
+      Walmart: "/projects",
       "Web Development": "/projects",
     };
     return map[category] || "/projects";
@@ -73,7 +67,7 @@ export default function HomeProject() {
   return (
     <section
       ref={ref}
-      className="min-h-screen py-16 px-4 sm:px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100 font-sans"
+      className="min-h-screen py-16 px-4 sm:px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100 font-serif"
     >
       {/* Section Title */}
       <motion.h1
@@ -85,7 +79,7 @@ export default function HomeProject() {
         Discover Our Latest Projects
       </motion.h1>
 
-      {/* Category Buttons */}
+      {/* Category Buttons (UNCHANGED) */}
       <motion.div
         className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10 sm:mb-12"
         initial={{ opacity: 0, y: 20 }}
@@ -97,7 +91,7 @@ export default function HomeProject() {
             key={cat}
             onClick={() => setActiveCategory(cat)}
             className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
-             activeCategory === cat
+              activeCategory === cat
                 ? "bg-[#4C93FF] text-white shadow-md"
                 : "bg-white text-[#FF6B35] border hover:bg-[#FF6B35] hover:text-white"
             }`}
@@ -146,35 +140,35 @@ export default function HomeProject() {
                     className="w-full h-[320px] sm:h-[360px] object-cover"
                   />
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:bottom-5 transition-all duration-500 ease-out pointer-events-none z-10">
-                    <button
+                    <Button
+                      content="View More"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedProject(project);
                       }}
-                      className="px-6 py-2.5 bg-[#4C93FF] text-white font-semibold rounded-xl shadow-md hover:bg-[#3a84f0] transition pointer-events-auto text-sm sm:text-base"
-                    >
-                      View More
-                    </button>
+                      className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 pointer-events-auto`}
+                    />
                   </div>
                 </motion.div>
               ))}
         </motion.div>
       </AnimatePresence>
 
-    
-<motion.div
-  className="mt-10 flex justify-center"
-  initial={{ opacity: 0, y: 20 }}
-  animate={isInView ? { opacity: 1, y: 0 } : {}}
-  transition={{ delay: 0.5 }}
->
-  <a
-    href={getCategoryRoute(activeCategory)}
-    className="bg-[#4C93FF] hover:bg-[#4C93FF] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-  >
-    View More {activeCategory} Projects →
-  </a>
-</motion.div>
+      {/* View More Projects Button */}
+      <motion.div
+        className="mt-10 flex justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.5 }}
+      >
+        <a href={getCategoryRoute(activeCategory)}>
+          <Button
+            content={`View More ${activeCategory} Projects →`}
+            onClick={() => {}}
+            className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300`}
+          />
+        </a>
+      </motion.div>
 
       {/* Modal */}
       <AnimatePresence>
@@ -222,7 +216,6 @@ export default function HomeProject() {
                         prevImage();
                       }}
                       className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#4C93FF] text-white p-2.5 rounded-full hover:bg-[#3a84f0] z-20"
-                      aria-label="Previous"
                     >
                       <ChevronLeft size={22} />
                     </button>
@@ -232,7 +225,6 @@ export default function HomeProject() {
                         nextImage();
                       }}
                       className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#4C93FF] text-white p-2.5 rounded-full hover:bg-[#3a84f0] z-20"
-                      aria-label="Next"
                     >
                       <ChevronRight size={22} />
                     </button>
@@ -247,15 +239,18 @@ export default function HomeProject() {
                 <p className="text-gray-600 mb-4 text-sm sm:text-base">
                   {selectedProject.desc}
                 </p>
+
                 {selectedProject.link && (
                   <a
                     href={selectedProject.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <button className="px-5 py-2 bg-gradient-to-r from-[#4C93FF] to-blue-500 text-white rounded-full font-medium hover:shadow-lg transition text-sm sm:text-base">
-                      Visit Project
-                    </button>
+                    <Button
+                      content="Visit Project"
+                      onClick={() => {}}
+                      className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300`}
+                    />
                   </a>
                 )}
               </div>

@@ -1,4 +1,3 @@
-// src/components/BrandServicesSection.jsx
 "use client";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -7,7 +6,7 @@ import brand from "./../../assets/agency.jpg";
 
 const progressData = [
   { title: "Amazon Services", value: 90 },
-  { title: "eBay Services", value: 80 },
+  { title: "EBay Services", value: 80 },
   { title: "Walmart Services", value: 85 },
   { title: "Web Development", value: 95 },
 ];
@@ -31,13 +30,13 @@ export default function BrandServicesSection() {
           start += 1;
           setAnimatedValues((prev) => {
             const updated = [...prev];
-            updated[i] = Math.min(start, item.value); // Prevent overshoot
+            updated[i] = Math.min(start, item.value);
             return updated;
           });
           if (start >= item.value) {
             clearInterval(interval);
           }
-        }, 15); // Slightly faster for smoother feel
+        }, 15);
       });
     } else {
       controls.start({ opacity: 0, y: 30 });
@@ -50,9 +49,8 @@ export default function BrandServicesSection() {
       initial={{ opacity: 0, y: 50 }}
       animate={controls}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="w-full min-h-[90vh] md:min-h-[100vh] grid md:grid-cols-2 font-sans overflow-hidden"
+      className="w-full min-h-[90vh] md:min-h-[100vh] grid md:grid-cols-2 font-serif overflow-hidden"
     >
-      {/* Left Image */}
       <motion.div
         initial={{ x: -40, opacity: 0 }}
         animate={inView ? { x: 0, opacity: 1 } : { x: -40, opacity: 0 }}
@@ -67,16 +65,15 @@ export default function BrandServicesSection() {
         <div className="absolute inset-0 bg-black/20"></div>
       </motion.div>
 
-      {/* Right Content */}
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={inView ? { x: 0, opacity: 1 } : { x: 40, opacity: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="bg-[#4C93FF] flex flex-col justify-center px-5 sm:px-8 md:px-12 py-10 md:py-0 text-white relative order-1 md:order-2"
+        className="bg-[#4C93FF] flex flex-col justify-center px-5 sm:px-8 md:px-12 py-10 md:py-0 text-white relative order-1 md:order-2 font-serif"
       >
         <div className="relative z-10 max-w-lg mx-auto w-full">
           <motion.h2
-            className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-tight mb-3"
+            className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-tight mb-3 font-serif"
             initial={{ y: 20, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
@@ -85,7 +82,7 @@ export default function BrandServicesSection() {
           </motion.h2>
 
           <motion.p
-            className="text-white text-sm sm:text-base md:text-lg leading-relaxed mb-6"
+            className="text-white text-sm sm:text-base md:text-lg leading-relaxed mb-6 font-serif"
             initial={{ y: 15, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
@@ -95,7 +92,6 @@ export default function BrandServicesSection() {
             delivering results that matter.
           </motion.p>
 
-          {/* Progress Bars */}
           <div className="space-y-4 sm:space-y-5">
             {progressData.map((item, i) => (
               <motion.div
@@ -104,7 +100,7 @@ export default function BrandServicesSection() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.3 + i * 0.15 }}
               >
-                <div className="flex justify-between font-semibold text-white text-sm sm:text-base mb-1.5">
+                <div className="flex justify-between font-semibold text-white text-sm sm:text-base mb-1.5 font-serif">
                   <span>{item.title}</span>
                   <span>{animatedValues[i]}%</span>
                 </div>

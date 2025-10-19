@@ -25,7 +25,7 @@ export default function HomeTestimonials() {
 
   return (
     <section
-      className="py-16 sm:py-20 bg-white px-4 sm:px-6 lg:px-12 font-sans overflow-visible relative"
+      className="py-16 sm:py-20 bg-white px-4 sm:px-6 lg:px-12 font-serif overflow-visible relative"
       role="region"
       aria-label="Testimonials Section"
     >
@@ -35,7 +35,7 @@ export default function HomeTestimonials() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-10 sm:mb-14 text-gray-900"
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-10 sm:mb-14 text-gray-900 font-serif"
       >
         What Our Clients Say
       </motion.h1>
@@ -66,7 +66,7 @@ export default function HomeTestimonials() {
             <SwiperSlide key={item.id} role="listitem">
               {({ isActive, isPrev, isNext }) => (
                 <motion.div
-                  className="rounded-2xl shadow-xl p-6 sm:p-8 h-[400px] sm:h-[420px] text-white text-center cursor-pointer transition-all duration-700 bg-gradient-to-br from-[#4C93FF] to-[#2A7AE4]"
+                  className="rounded-2xl shadow-xl p-6 sm:p-8 h-[400px] sm:h-[420px] text-white text-center cursor-pointer transition-all duration-700 bg-gradient-to-br from-[#4C93FF] to-[#2A7AE4] font-serif"
                   onClick={() => item.video && setSelectedVideo(item.video)}
                   style={{
                     transform: isActive
@@ -102,14 +102,14 @@ export default function HomeTestimonials() {
                           onError={(e) => console.error("Video failed to load:", e)}
                         />
                       </div>
-                      <h3 className="text-lg sm:text-xl font-semibold">{item.title}</h3>
-                      <p className="text-xs sm:text-sm opacity-90 mt-1 mb-3">
+                      <h3 className="text-lg sm:text-xl font-semibold font-serif">{item.title}</h3>
+                      <p className="text-xs sm:text-sm opacity-90 mt-1 mb-3 font-serif">
                         {item.date} • {item.category}
                       </p>
                       <motion.button
                         whileHover={{ x: 4 }}
                         whileTap={{ scale: 0.98 }}
-                        className="text-sm sm:text-base font-medium border-b border-white/80 hover:border-white transition-colors duration-200"
+                        className="text-sm sm:text-base font-medium border-b border-white/80 hover:border-white transition-colors duration-200 font-serif"
                         aria-label={`Watch full video testimonial: ${item.title}`}
                       >
                         WATCH NOW →
@@ -122,16 +122,16 @@ export default function HomeTestimonials() {
                         alt={item.name}
                         className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-white/50 mb-3 mx-auto shadow-md"
                       />
-                      <h3 className="text-lg sm:text-xl font-semibold">{item.name}</h3>
-                      <p className="text-xs sm:text-sm opacity-90 mb-3">{item.designation}</p>
-                      <p className="text-sm sm:text-[15px] leading-relaxed opacity-95 line-clamp-4 mb-4 px-2">
+                      <h3 className="text-lg sm:text-xl font-semibold font-serif">{item.name}</h3>
+                      <p className="text-xs sm:text-sm opacity-90 mb-3 font-serif">{item.designation}</p>
+                      <p className="text-sm sm:text-[15px] leading-relaxed opacity-95 line-clamp-4 mb-4 px-2 font-serif">
                         {item.text}
                       </p>
                       <a
                         href={item.link || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm sm:text-base font-medium border-b border-white/80 hover:border-white transition-colors duration-200 inline-block"
+                        className="text-sm sm:text-base text-white font-medium border-b border-white/80 hover:border-white transition-colors duration-200 inline-block font-serif"
                         aria-label={`Read full review by ${item.name} on Fiverr`}
                       >
                         Read on Fiverr →
@@ -178,7 +178,7 @@ export default function HomeTestimonials() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[60%] rounded-2xl overflow-hidden shadow-2xl bg-gray-900"
+              className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[60%] rounded-2xl overflow-hidden shadow-2xl bg-gray-900 font-serif"
               onClick={(e) => e.stopPropagation()}
             >
               <button

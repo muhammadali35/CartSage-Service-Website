@@ -11,7 +11,7 @@ export default function ServicesSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4"
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 font-serif"
         >
           What We Can Do for Our Clients
         </motion.h2>
@@ -19,7 +19,7 @@ export default function ServicesSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto"
+          className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto font-serif"
         >
           Building strong brands through design, technology, and creativity.
         </motion.p>
@@ -43,15 +43,15 @@ export default function ServicesSection() {
               boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
               y: -5,
             }}
-            className="bg-[#fafafa] p-8 sm:p-10 rounded-3xl border border-gray-100 hover:border-transparent hover:bg-white cursor-pointer transition-all duration-300"
+            className="bg-[#fafafa] p-8 sm:p-10 rounded-3xl border border-gray-100 hover:border-transparent hover:bg-white cursor-pointer transition-all duration-300 font-serif"
           >
             <div className="mb-5 text-4xl text-[#FF6B35]">{service.icon}</div>
-            <h3 className="text-xl sm:text-2xl font-bold mb-3">{service.title}</h3>
-            <p className="text-gray-600 mb-7 leading-relaxed">{service.desc}</p>
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 font-serif">{service.title}</h3>
+            <p className="text-gray-600 mb-7 leading-relaxed font-serif">{service.desc}</p>
 
             <Link
               to={`/services/${service.id}`}
-              className="inline-flex items-center font-semibold group"
+              className="inline-flex items-center font-semibold group font-serif"
             >
               <span className="border-b border-[#FF6B35] pb-[2px] group-hover:border-transparent transition-all duration-200 text-[#FF6B35]">
                 View Details
@@ -63,8 +63,6 @@ export default function ServicesSection() {
           </motion.div>
         ))}
       </div>
-
-   
     </section>
   );
 }

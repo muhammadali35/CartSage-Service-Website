@@ -17,22 +17,22 @@ export default function SectionHeader({ title, bgImage }) {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* Title */}
+      {/* Title — ✅ Added font-serif */}
       <motion.h1
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 text-white text-5xl md:text-6xl font-extrabold tracking-wide drop-shadow-lg"
+        className="relative z-10 text-white text-5xl md:text-6xl font-extrabold tracking-wide drop-shadow-lg font-serif"
       >
         {title}
       </motion.h1>
 
-      {/* Breadcrumb */}
+      {/* Breadcrumb — ✅ Added font-serif */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
-        className="relative z-10 mt-4 flex items-center gap-2 text-white/90 text-lg"
+        className="relative z-10 mt-4 flex items-center gap-2 text-white/90 text-lg font-serif"
       >
         <Link
           to="/home"
@@ -47,7 +47,7 @@ export default function SectionHeader({ title, bgImage }) {
       {/* ✅ MODERN SYMMETRICAL WAVE — Clean & Smooth */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
         <svg
-          className="relative block w-full h-[100px]" // Thoda height badhaya for better visibility
+          className="relative block w-full h-[100px]"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"

@@ -1,47 +1,40 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from './Pages/Home/Home'
-// import About from './Pages/About/About'
-// import Services from './Pages/Services/Services'
-// import Testimonials from './Pages/Testimonials/Testimonials'
-// import Contact from './Pages/Contact/Contact'
-import Navbar from './components/Layout/Nav'
-import ServiceDetailPage from "./Pages/Services/ServiceDetail";
-import ServicePage from "./Pages/Services/ServicePage";
-import ProjectPage from "./Pages/Projects/ProjectPage";
-import TestimonialPage from "./Pages/Testimonial/TestimonialPage";
-import Contact from "./Pages/Contact/Contact";
-import Footer from './components/Layout/Footer'
-import ContactPage from "./Pages/Contact/ContactPage";
-import WhatsAppButton from "./components/WhatsAppButton";
-import ScrollToTopButton from "./components/ScrollToTopButton";
-import ScrollToTop from "./components/ScrollToTop";
+// src/App.js
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from 'react';
+import LazyLoader from './components/LazyLoader'; 
+const Navbar = lazy(() => import('./components/Layout/Nav'));
+const Footer = lazy(() => import('./components/Layout/Footer'));
+const WhatsAppButton = lazy(() => import("./components/WhatsAppButton"));
+const ScrollToTopButton = lazy(() => import("./components/ScrollToTopButton"));
+const ScrollToTop = lazy(() => import("./components/ScrollToTop"));
 
-
+const Home = lazy(() => import('./Pages/Home/Home'));
+const ServicePage = lazy(() => import("./Pages/Services/ServicePage"));
+const ServiceDetailPage = lazy(() => import("./Pages/Services/ServiceDetail"));
+const ProjectPage = lazy(() => import("./Pages/Projects/ProjectPage"));
+// const TestimonialPage = lazy(() => import("./Pages/Testimonial/TestimonialPage"));
+const ContactPage = lazy(() => import("./Pages/Contact/ContactPage"));
 
 function App() {
-
-
   return (
-    <>
-     <Router>
-      <ScrollToTop/>
-      <Navbar/>
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/services' element={<ServicePage/>}/>
-        <Route path='/projects' element={<ProjectPage/>}/>
-        <Route path='/testimonials' element={<TestimonialPage/>}/>
-        <Route path='/contact' element={<ContactPage/>}/>
-       <Route path="/services/:id" element={<ServiceDetailPage />} />
-    
-      </Routes>
-      <Footer/>
-      <WhatsAppButton/>
-      <ScrollToTopButton/>
-     </Router>
-    </>
-  )
+    <Suspense fallback={<LazyLoader />}> 
+      <Router>
+        <ScrollToTop />
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/services' element={<ServicePage />} />
+          <Route path='/projects' element={<ProjectPage />} />
+          <Route path='/contact' element={<ContactPage />} />
+          <Route path="/services/:id" element={<ServiceDetailPage />} />
+        </Routes>
+        <Footer />
+        <WhatsAppButton />
+        <ScrollToTopButton />
+      </Router>
+    </Suspense>
+  );
 }
 
-export default App
+export default App;

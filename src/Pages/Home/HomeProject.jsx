@@ -141,12 +141,12 @@ export default function HomeProject() {
                   />
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:bottom-5 transition-all duration-500 ease-out pointer-events-none z-10">
                     <Button
-                      content="View More"
+                      content="More Details"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedProject(project);
                       }}
-                      className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 pointer-events-auto`}
+                      className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3  text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 pointer-events-auto`}
                     />
                   </div>
                 </motion.div>

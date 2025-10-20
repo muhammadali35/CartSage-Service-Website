@@ -2,7 +2,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import brand from "./../../assets/agency.jpg";
+import brand from "./../../assets/optimized/agency.webp";
 
 const progressData = [
   { title: "Amazon Services", value: 90 },

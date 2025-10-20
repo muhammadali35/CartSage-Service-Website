@@ -110,7 +110,7 @@ export default function ServiceDetailPage() {
 
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-serif">
         {/* Hero Section */}
-        <div className="relative w-full h-[400px] sm:h-[450px] flex flex-col items-center justify-center overflow-hidden">
+        <div className="relative h-[60vh] w-full flex flex-col items-center justify-center overflow-hidden text-center">
           <motion.img
             src={servicehero}
             alt={service.title}
@@ -128,7 +128,29 @@ export default function ServiceDetailPage() {
           >
             {service.title}
           </motion.h1>
+
+            {/* ✅ MODERN SYMMETRICAL WAVE — Clean & Smooth */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+        <svg
+          className="relative block w-full h-[100px]"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,60 
+               C300,10 600,110 900,60 
+               C1000,45 1100,50 1200,60 
+               L1200,120 
+               L0,120 
+               Z"
+            className="fill-white"
+          ></path>
+        </svg>
+      </div>
         </div>
+
+
 
         {/* Main Content */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-16">
@@ -173,13 +195,13 @@ export default function ServiceDetailPage() {
 
             <motion.div
               className="mt-10 flex justify-center"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
+               initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 1.0, ease: "easeOut" }}
             >
               <button
                 onClick={() => setShowModal(true)}
-                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#4C93FF] to-[#3a7fd9] text-white font-semibold shadow-md hover:scale-105 transition-transform font-serif"
+                className="bg-[#FF6B35] hover:bg-[#3a84f0] text-white px-6 py-2.5 sm:px-8 sm:py-3 text-base sm:text-lg rounded-full shadow-md hover:shadow-lg transition duration-300 font-serif"
               >
                 Get Service
               </button>
@@ -271,7 +293,7 @@ export default function ServiceDetailPage() {
                   <button
                     type="submit"
                     disabled={sending}
-                    className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#4C93FF] to-[#3a7fd9] text-white rounded-xl font-semibold font-serif"
+                    className="w-full py-2.5 sm:py-3   text-white rounded-xl font-semibold font-serif bg-[#FF6B35] hover:bg-[#3a84f0]"
                   >
                     {sending ? "Sending..." : "Submit Request"}
                   </button>

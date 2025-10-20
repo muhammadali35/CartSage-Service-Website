@@ -12,15 +12,31 @@ export default function Navbar() {
   const [popupOpen, setPopupOpen] = useState(false);
   const location = useLocation();
 
+  // Close menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [location]);
 
+  // Handle scroll for sticky navbar
   useEffect(() => {
     const handleScroll = () => setSticky(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // 🔒 Disable body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   const navItems = ["Home", "Services", "Projects", "Contact"];
 
@@ -93,9 +109,9 @@ export default function Navbar() {
             </ul>
 
             <Button
-              content="book Free Consultation"
+              content="Book Free Consultation"
               onClick={() => setPopupOpen(true)}
-              className="!bg-[#FF6B35] hover:!bg-[#3a84f0] text-white px-6 py-2.5 font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-300 pointer-events-auto font-serif"
+              className="!bg-[#FF6B35] hover:!bg-[#3a84f0] text-white px-6 py-2.5 font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-300 pointer-events-auto font-serif "
             />
           </div>
 
@@ -142,7 +158,6 @@ export default function Navbar() {
           </Link>
         ))}
 
-        {/* ✅ Mobile Free Consultation Button */}
         <Button
           content="Free Consultation"
           onClick={() => {
@@ -165,12 +180,10 @@ export default function Navbar() {
         ></motion.div>
       )}
 
-      {/* ✅ Popup */}
-   <ConsultationPopup
-  isOpen={popupOpen}
-  onClose={() => setPopupOpen(false)}
-/>
-
+      <ConsultationPopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+      />
 
       <style jsx>{`
         .text-shadow-sm {

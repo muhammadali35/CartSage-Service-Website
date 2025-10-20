@@ -1,6 +1,6 @@
 import clint1 from "../assets/client1.webp";
-import clint2 from "../assets/emilykarben.png";
-import man from "../assets/man.png";
+import clint2 from "../assets/optimized/emilykarben.webp";
+import man from "../assets/optimized/man.webp";
 // import woman from "../assets/woman.png";
 
 export const testimonials = [

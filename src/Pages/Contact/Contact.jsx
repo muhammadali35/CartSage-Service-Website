@@ -207,7 +207,7 @@ export default function Contact() {
                 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="relative inline-flex items-center justify-center px-8 py-3 sm:px-10 sm:py-4 bg-gradient-to-r from-[#4C93FF] to-[#3a7fd9] text-white text-base sm:text-lg font-semibold rounded-full transition-all overflow-hidden shadow-md hover:shadow-lg"
+                className="relative inline-flex items-center justify-center px-8 py-3 sm:px-10 sm:py-4 bg-[#FF6B35] hover:bg-[#3a84f0] text-white text-base sm:text-lg font-semibold rounded-full transition-all overflow-hidden shadow-md hover:shadow-lg"
               >
                 Send Message 🚀
               </motion.button>

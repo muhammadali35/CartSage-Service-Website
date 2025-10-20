@@ -76,7 +76,7 @@ export default function CtaSection() {
           transition={{ delay: 0.4, type: "spring", stiffness: 150, damping: 15 }}
         >
           <Button
-            content="LET’S BOOK A FREE CONSULTATION"
+            content=" BOOK A FREE CONSULTATION"
             onClick={() => setIsPopupOpen(true)}
             className={`!bg-[${BRAND_COLOR}] hover:!bg-[#3a84f0] text-white px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 font-serif`}
           />

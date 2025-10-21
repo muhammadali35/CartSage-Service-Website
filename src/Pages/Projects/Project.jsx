@@ -144,7 +144,7 @@ export default function Project() {
             onClick={closeModal}
           >
             <motion.div
-              className="relative bg-white rounded-3xl shadow-2xl w-[95%] md:w-[80%] lg:w-[65%] max-h-[90vh] overflow-y-auto p-8 hide-scrollbar font-serif"
+              className="relative bg-white rounded-3xl shadow-2xl w-[95%] md:w-[80%] lg:w-[65%] max-h-[90vh] overflow-y-auto  hide-scrollbar font-serif"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}

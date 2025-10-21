@@ -16,9 +16,9 @@ export default function Contact() {
     message: "",
   });
 
-  const ServiceID = "service_90wsw7f";
-  const TemplateID = "template_3k3cbrv";
-  const UserID = "dgKWBXF_Ub2bbtZXr";
+  const ServiceID = "service_1fltt75";
+  const TemplateID = "template_sark1zp";
+  const UserID = "jLUwej-lch9prgzqc";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

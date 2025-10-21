@@ -16,9 +16,9 @@ export default function ConsultationPopup({ isOpen, onClose }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
-  const ServiceID = "service_90wsw7f";
-  const TemplateID = "template_s0wykbn";
-  const UserID = "dgKWBXF_Ub2bbtZXr";
+  const ServiceID = "service_1fltt75";
+  const TemplateID = "template_zqr13wv";
+  const UserID = "jLUwej-lch9prgzqc";
 
   useEffect(() => {
     emailjs.init(UserID);

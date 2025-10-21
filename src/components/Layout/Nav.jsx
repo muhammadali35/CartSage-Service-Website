@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion } from "framer-motion";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/optimized/logo.webp";
 import Button from "../Button";
 import ConsultationPopup from "../ConsultatioPopup";
 

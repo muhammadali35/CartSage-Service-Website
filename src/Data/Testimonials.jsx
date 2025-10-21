@@ -1,4 +1,4 @@
-import clint1 from "../assets/client1.webp";
+import clint1 from "../assets/optimized/client1.webp";
 import clint2 from "../assets/optimized/emilykarben.webp";
 import man from "../assets/optimized/man.webp";
 // import woman from "../assets/woman.png";
@@ -10,7 +10,7 @@ export const testimonials = [
     category: "Client Feedback",
     title: "Great Experience Working With Usman",
     video: "/videos/ClientVideo.mp4",
-    // image: "https://via.placeholder.com/150", 
+   
   },
   {
     id: 2,

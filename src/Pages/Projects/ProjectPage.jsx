@@ -1,6 +1,6 @@
 import React from 'react'
 import SectionHeader from '../../components/SectionHeader'
-import projectH from '../../assets/projejctH.jpg'
+import projectH from '../../assets/optimized/HeroImgs/projectHero.webp'
 import ProjectSection from './Project'
 import Project from './Project'
 const ProjectPage = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import SectionHeader from '../../components/SectionHeader'
-import contactH from '../../assets/contacth.jpg'
+import contactH from '../../assets/contact2.png'
 import Contact from './Contact'
 const ContactPage = () => {
   return (

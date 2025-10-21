@@ -110,11 +110,11 @@ export default function ServiceDetailPage() {
 
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-serif">
         {/* Hero Section */}
-        <div className="relative h-[60vh] w-full flex flex-col items-center justify-center overflow-hidden text-center">
+        <div className="relative h-[60vh] w-full flex flex-col items-center justify-center overflow-hidden text-center ">
           <motion.img
-            src={servicehero}
+            src={service.image || servicehero}
             alt={service.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-fill"
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1 }}
@@ -129,7 +129,7 @@ export default function ServiceDetailPage() {
             {service.title}
           </motion.h1>
 
-            {/* ✅ MODERN SYMMETRICAL WAVE — Clean & Smooth */}
+          
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
         <svg
           className="relative block w-full h-[100px]"

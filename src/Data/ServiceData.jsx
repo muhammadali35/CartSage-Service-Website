@@ -1,7 +1,10 @@
 import { FaAmazon, FaEbay } from "react-icons/fa";
 import { SiWalmart, SiWebflow } from "react-icons/si";
-import amazon from './../assets/Amazon_Banner.png'
+import amazon from './../assets/Amazon1.png'
 import walmat from './../assets/walmat.jpg'
+import ebay from "../assets/ebayHero.png";
+import webimg from "../assets/webDevelopment.png";
+
 export const servicesData = [
   {
     id: 1,
@@ -9,8 +12,7 @@ export const servicesData = [
     desc: "We help sellers grow and optimize their Amazon presence with creative branding and product design.",
     icon: FaAmazon, 
     iconColor: "#FF9900",
-    image:
-    amazon,
+    image: amazon,
     tagline: "Maximize your Amazon store’s growth and visibility.",
     features: [
       "Product Hunting",
@@ -27,8 +29,7 @@ export const servicesData = [
     desc: "Boost your eBay store with eye-catching designs and professional marketplace optimization.",
     icon: FaEbay,
     iconColor: "#0064D2",
-    image:
-      "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=1200&q=80",
+    image:ebay,
     tagline: "Stand out and sell more on eBay.",
     features: [
       "Finding Profitable Products ",
@@ -63,8 +64,7 @@ export const servicesData = [
     desc: "We create fast, responsive, and modern websites to elevate your brand and drive real growth.",
     icon: SiWebflow,
     iconColor: "#4353FF",
-    image:
-      "https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=80",
+    image:webimg,
     tagline: "Build a stunning website that drives conversions.",
    features: [
   "Responsive Full-Stack Development",

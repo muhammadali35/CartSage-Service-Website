@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 const ScrollingText = () => {
   const items = [
+     "Professional Website Development & SEO",
     "End-to-End Amazon Store Management",
     "eBay Listing Optimization & Growth",
     "Walmart Marketplace Strategy & Execution",

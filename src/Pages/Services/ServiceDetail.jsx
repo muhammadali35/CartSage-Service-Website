@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { servicesData } from "../../Data/ServiceData";
 import { X } from "lucide-react";
-import servicehero from "../../assets/hero3.jpg";
+import servicehero from "../../assets/optimized/HeroImgs/serviceHero.webp";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

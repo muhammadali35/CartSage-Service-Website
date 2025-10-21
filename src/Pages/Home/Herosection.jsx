@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import hero from "../../assets/optimized/hero5.webp";
+import hero from "../../assets/optimized/HeroImgs/HeroSection.webp";
 import Button from "../../components/Button";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const HeroSection = () => {
         transition={{ duration: 1.5, ease: "easeOut" }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80 z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/80 z-10"></div>
 
       <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-8 lg:px-12">
         <div className="text-center text-white max-w-3xl">

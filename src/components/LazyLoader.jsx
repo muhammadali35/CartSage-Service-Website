@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/optimized/logo.webp';
 
 const LazyLoader = () => {
   return (

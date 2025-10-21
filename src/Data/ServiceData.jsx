@@ -1,9 +1,9 @@
 import { FaAmazon, FaEbay } from "react-icons/fa";
 import { SiWalmart, SiWebflow } from "react-icons/si";
-import amazon from './../assets/Amazon1.png'
-import walmat from './../assets/walmat.jpg'
-import ebay from "../assets/ebayHero.png";
-import webimg from "../assets/webDevelopment.png";
+import amazon from './../assets/optimized/HeroImgs/amazonHero.webp'
+import walmat from './../assets/optimized/HeroImgs/WalmatHero.webp'
+import ebay from "../assets/optimized/HeroImgs/ebayHero.webp";
+import webimg from "../assets/optimized/HeroImgs/webHero.webp";
 
 export const servicesData = [
   {

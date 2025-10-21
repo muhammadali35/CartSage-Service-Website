@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, User, Briefcase, MessageSquare } from "lucide-react";
 import emailjs from "emailjs-com";
-import { ToastContainer, toast } from "react-toastify"; // ✅
-import "react-toastify/dist/ReactToastify.css"; // ✅
+import { ToastContainer, toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
 
 export default function Contact() {
   const [formData, setFormData] = useState({

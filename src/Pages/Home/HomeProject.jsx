@@ -137,7 +137,7 @@ export default function HomeProject() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-[320px] sm:h-[360px] object-cover"
+                    className="w-full h-[320px] sm:h-[360px] object-fill"
                   />
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:bottom-5 transition-all duration-500 ease-out pointer-events-none z-10">
                     <Button
